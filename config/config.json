@@ -4,7 +4,7 @@
     "password": "Ash4Cynth!4",
     "database": "passport_demo",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "posgres"
   },
   "test": {
     "username": "root",
