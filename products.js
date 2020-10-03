@@ -27,8 +27,8 @@ fetch(listingsURL)
         num_favorers: listing.num_favorers,
       }).then((results) => {
         console.log("db results: ", results);
-      })
-    })
+      });
+    });
   })}
 
   
