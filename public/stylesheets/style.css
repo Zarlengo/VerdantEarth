@@ -14,7 +14,7 @@ body
 {
     background: #36453B;
 }
-section
+.mainpage
 {
     padding: 100px;
     display: flex;
@@ -22,7 +22,7 @@ section
     align-items: center;
     min-height: 100vh;
 }
-section .logo
+.mainpage .logo
 {
     position: fixed;
     top: 30px;
@@ -31,36 +31,66 @@ section .logo
     z-index: 100;
     cursor: pointer;
 }
-section .bg 
+.mainpage .bg 
 {
     position: absolute;
     top: 0;
     right: 60px;
     height: 100%;
 }
-section .content
+.mainpage .content
 {
     position: relative;
     max-width: 650px;
     z-index: 1;
 }
-section .content h2
+.mainpage .content h2
 {
     color: orange;
     font-size: 4em;
     font-weight: 700;
     line-height: 1.1em;
 }
-section .content p
+.mainpage .content p
 {
     color: white;
     font-size: 1.em;
     margin: 20px 0 10px;
 }
-section .content button 
+.mainpage .content button 
 {
     color: #ffffff;
     background: #36453B;
+    font-size: 1em;
+    margin: 20px 0;
+    font-weight: 500;
+    padding: 10px 30px;
+    text-decoration: none;
+}
+.productbutton
+{
+    color: #ffffff;
+    background-color: #36453B;
+    font-size: 1em;
+    margin: 20px 0;
+    font-weight: 500;
+    padding: 10px 30px;
+    text-decoration: none;
+}
+.solarbutton
+{
+    color: #ffffff;
+    background-color: #36453B;
+    font-size: 1em;
+    margin: 20px 0;
+    font-weight: 500;
+    padding: 10px 30px;
+    text-decoration: none;
+}
+.windbutton
+{
+    color: #ffffff;
+    background-color: #36453B;
     font-size: 1em;
     margin: 20px 0;
     font-weight: 500;
@@ -155,11 +185,11 @@ left: 0px;
 }
 @media (max-width: 767px)
 {
-    section 
+    .mainpage
     {
         padding: 100px 40px;
     }
-    section .content h2 
+    .mainpage .content h2 
     {
         font-size: 2.5em;
     }
@@ -167,7 +197,7 @@ left: 0px;
     {
         left: 100%;
     }
-    section .bg
+    .mainpage .bg
     {
         position: absolute;
         top: 0;
@@ -177,7 +207,7 @@ left: 0px;
         object-fit: cover;
         opacity: 0.5;
     }
-    section .logo 
+    .mainpage .logo 
     {
         top: 10px;
         font-size: 1.5em;
