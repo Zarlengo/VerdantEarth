@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": "Ash4Cynth!4",
-    "database": "passport_demo",
+    "password": "Always101!",
+    "database": "VerdantEarth",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
