@@ -1,8 +1,8 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const fetch = require('node-fetch');
-const Sequelize = require('sequelize')
-require('dotenv').config()
+const fetch = require("node-fetch");
+const Sequelize = require("sequelize");
+require("dotenv").config();
 
 function etsyApi() {
 
@@ -26,7 +26,7 @@ fetch(listingsURL)
         url: listing.url,
         num_favorers: listing.num_favorers,
       }).then((results) => {
-        console.log('db results:', results);
+        console.log("db results: ", results);
       })
     })
   })}
