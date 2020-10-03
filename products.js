@@ -1,5 +1,3 @@
-const e = require("express");
-
 module.exports = function etsyApi(products) {
   const fetch = require("node-fetch");
   const listingUrl = [
