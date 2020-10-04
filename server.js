@@ -1,5 +1,5 @@
 // Requiring necessary npm packages
-const products = require("./products.js");
+const products = require("./config/etsyAPI.js");
 const express = require("express");
 const session = require("express-session");
 const handlebars = require("express-handlebars");
@@ -29,7 +29,6 @@ require("./routes/api-routes.js")(app);
 
 // Syncing our database and logging a message to the user upon success
 db.sequelize.sync().then(() => {
-  console.log(products);
   products(db.products);
   app.listen(PORT, () => {
     console.log(

@@ -1,6 +1,7 @@
 // Requiring our models and passport as we've configured it
 const db = require("../models");
 const passport = require("../config/passport");
+const Op = db.Sequelize.Op;
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -76,6 +77,18 @@ module.exports = function(app) {
     }).then(dbPost => {
       res.json(dbPost);
     });
+  });
+
+  app.get("/api/products/:tag", (req, res) => {
+    db.products
+      .findAll({
+        where: {
+          tags: { [Op.like]: `%${req.params.tag}%` }
+        }
+      })
+      .then(results => {
+        res.json(results);
+      });
   });
   // PUT route for updating users search history  ***********place holders for now*****************
   app.put("/api/user/:id", (req, res) => {
