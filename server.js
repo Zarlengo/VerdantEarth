@@ -1,10 +1,13 @@
 // Requiring necessary npm packages
-const products = require("./config/etsyAPI.js");
 const express = require("express");
 const session = require("express-session");
 const handlebars = require("express-handlebars");
 // Requiring passport as we've configured it
 const passport = require("./config/passport");
+// Allows env variables in development
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 
 // Setting up port and requiring models for syncing
 const PORT = process.env.PORT || 8080;
@@ -29,7 +32,6 @@ require("./routes/api-routes.js")(app);
 
 // Syncing our database and logging a message to the user upon success
 db.sequelize.sync().then(() => {
-  products(db.products);
   app.listen(PORT, () => {
     console.log(
       "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",

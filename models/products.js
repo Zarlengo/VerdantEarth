@@ -24,6 +24,9 @@ module.exports = function(sequelize, DataTypes) {
     },
     taxonomyPath: {
       type: DataTypes.STRING
+    },
+    imageURL: {
+      type: DataTypes.TEXT
     }
   });
 

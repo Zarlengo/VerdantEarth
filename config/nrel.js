@@ -1,8 +1,6 @@
 module.exports = class NREL {
   constructor() {
-    this.apiKey =
-      process.env.NODE_ENV || "C3m3HqjHGN2Swrd8YSbB23jsTEirVKytinsFDnNu";
-    this.authorizationString = `api_key=${this.apiKey}`;
+    this.authorizationString = `api_key=${process.env.NREL_API}`;
     this.baseURL = "https://developer.nrel.gov";
     this.URLobject = {
       solarQuery: "/api/solar/data_query/v1",

@@ -2,6 +2,8 @@
 const db = require("../models");
 const passport = require("../config/passport");
 const Op = db.Sequelize.Op;
+const Products = require("../config/etsyAPI.js");
+products = new Products(db.products);
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -90,6 +92,19 @@ module.exports = function(app) {
         res.json(results);
       });
   });
+
+  app.get("/api/products/:id/image", (req, res) => {
+    db.products
+      .findOne({
+        where: {
+          listingId: req.params.id
+        }
+      })
+      .then(results => {
+        res.json(results.imageURL);
+      });
+  });
+
   // PUT route for updating users search history  ***********place holders for now*****************
   app.put("/api/user/:id", (req, res) => {
     db.user

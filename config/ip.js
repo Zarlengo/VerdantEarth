@@ -1,11 +1,7 @@
-module.exports = ReferenceFunction => {
+module.exports = () => {
   const geoIPLookupURL = "https://json.geoiplookup.io/";
 
-  fetch(geoIPLookupURL)
-    .then(response => {
-      return response.json();
-    })
-    .then(request => {
-      ReferenceFunction(request);
-    });
+  fetch(geoIPLookupURL).then(response => {
+    return response.json();
+  });
 };
