@@ -19,28 +19,31 @@ footer
   height: 70px;
   width: 100%;
   bottom: 0;
+  text-align: center;
 }
 .products footer
 {
   background-image:
   -webkit-linear-gradient(125deg, transparent 30%, #EEEDD5),
   -webkit-linear-gradient(45deg, #44A08D, #093637);
+  text-align: center;
 }
 .solar footer
 {
   background-image:
   -webkit-linear-gradient(125deg, transparent 30%, #8A2387),
   -webkit-linear-gradient(45deg, #E94057, #F27121);
+  text-align: center;
 }
 .wind footer
 {
   background-image:
   -webkit-linear-gradient(125deg, transparent 30%, #7ea5c6),
   -webkit-linear-gradient(45deg, #6c349a, #ae5db6);
+  text-align: center;
 }
 .mainpage
 {
-    padding: 100px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -54,6 +57,7 @@ footer
     font-size: 2em;
     z-index: 100;
     cursor: pointer;
+    padding-left: 40px;
 }
 .mainpage .bg 
 {
@@ -61,12 +65,14 @@ footer
     top: 0;
     right: 60px;
     height: 100%;
+    opacity: 70%;
 }
 .mainpage .content
 {
     position: relative;
     max-width: 650px;
     z-index: 1;
+    padding-left: 50px;
 }
 .mainpage .content h2
 {
@@ -78,7 +84,7 @@ footer
 .mainpage .content p
 {
     color: white;
-    font-size: 1.em;
+    font-size: 1.5em;
     margin: 20px 0 10px;
 }
 .mainpage .content button 
@@ -364,6 +370,11 @@ a:hover .button:before,
 a:hover .button:after {
   border-color:var(--hover-color);
 }
+.content { 
+  position: relative; 
+  width: 100%; /* for IE 6 */
+}
+
 
 
 
