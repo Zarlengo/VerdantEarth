@@ -1,48 +1,50 @@
-module.export = class NREL {
-    constructor() {
-        this.api_key = 'C3m3HqjHGN2Swrd8YSbB23jsTEirVKytinsFDnNu';
-        this.authorization_string = `api_key=${ this.api_key }`;
-        this.base_URL = 'https://developer.nrel.gov';
-        this.URL_object = {
-            solar_query: '/api/solar/data_query/v1',
-            solar_resource: '/api/solar/solar_resource/v1',
-            pvWatts: '/api/pvwatts/v6',
-            pvdaq_site_data: '/api/pvdaq/v3/site_data',
-            pvdaq_data_file: '/api/pvdaq/v3/data_file',
-            pvday_sites: '/api/pvdaq/v3/sites',
-            utility_rates: '/api/utility_rates/v3',
-            utility_census: '/api/census_rate/v3',
-            NSRDB_data_query: '/api/solar/nsrdb_data_query',
-            physical_solar_model: '/api/nsrdb/v2/solar/psm3-download',
-            physical_solar_model_5_min: '/api/nsrdb/v2/solar/psm3-5min-download',
-            physical_solar_model_TMY: '/api/nsrdb/v2/solar/psm3-tmy-download',
-            site_count: '/api/nsrdb/v2/site-count',
-            spectral_data: '/api/nsrdb_api/solar/spectral_ondemand_download'
-        }
-        this.response_format = '.json'
-    }
+module.exports = class NREL {
+  constructor() {
+    this.apiKey =
+      process.env.NODE_ENV || "C3m3HqjHGN2Swrd8YSbB23jsTEirVKytinsFDnNu";
+    this.authorizationString = `api_key=${this.apiKey}`;
+    this.baseURL = "https://developer.nrel.gov";
+    this.URLobject = {
+      solarQuery: "/api/solar/data_query/v1",
+      solarResource: "/api/solar/solar_resource/v1",
+      pvWatts: "/api/pvwatts/v6",
+      pvdaqSiteData: "/api/pvdaq/v3/site_data",
+      pvdaqDataFile: "/api/pvdaq/v3/data_file",
+      pvdaySites: "/api/pvdaq/v3/sites",
+      utilityRates: "/api/utility_rates/v3",
+      utilityCensus: "/api/census_rate/v3",
+      NSRDBdataQuery: "/api/solar/nsrdb_data_query",
+      physicalSolarModel: "/api/nsrdb/v2/solar/psm3-download",
+      physicalSolarModel5min: "/api/nsrdb/v2/solar/psm3-5min-download",
+      physicalSolarModelTMY: "/api/nsrdb/v2/solar/psm3-tmy-download",
+      siteCount: "/api/nsrdb/v2/site-count",
+      spectralData: "/api/nsrdb_api/solar/spectral_ondemand_download"
+    };
+    this.responseFormat = ".json";
+  }
 
-    URLConstruct (URL_type, additions_object) {
-        let URL = `${ this.base_URL }${ this.URL_object[URL_type] }${ this.response_format }?${authorization}`;
-        if (additions_object === {}) {
-            return URL;
-        }
-        let additions_keys = Object.keys(additions_object);
-        let query_string = "";
-        additions_keys.forEach(element => {
-            query_string = query_string.concat(`&${element}=${additions_object[element]}`);
-        });
-        return `${ URL }${ query_string }`;
+  URLConstruct(URLtype, additionsObject) {
+    const URL = `${this.baseURL}${this.URL_object[URLtype]}${this.responseFormat}?${authorization}`;
+    if (additionsObject === {}) {
+      return URL;
     }
+    const additionsKeys = Object.keys(additions_object);
+    let queryString = "";
+    additionsKeys.forEach(element => {
+      queryString = queryString.concat(
+        `&${element}=${additionsObject[element]}`
+      );
+    });
+    return `${URL}${queryString}`;
+  }
 
-    getAPI (ReferenceFunction, URL_type, parameters) {
-        fetch(this.URLConstruct(URL_type, parameters))
-            .then(response => {
-                return response.json();
-            })
-            .then(request => {
-                ReferenceFunction(request.results);
-            })
-    }
-}
-
+  getAPI(ReferenceFunction, URLtype, parameters) {
+    fetch(this.URLConstruct(URLtype, parameters))
+      .then(response => {
+        return response.json();
+      })
+      .then(request => {
+        ReferenceFunction(request.results);
+      });
+  }
+};
