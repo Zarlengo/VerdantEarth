@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "KitKat6934",
+    "password": "password",
     "database": "VerdantEarth",
     "host": "127.0.0.1",
     "dialect": "mysql"
