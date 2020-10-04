@@ -39,6 +39,4 @@ document
   .querySelector("#bathroomBtn")
   .addEventListener("click", tagQuery, false);
 
-document
-  .querySelector("#beautyBtn")
-  .addEventListener("click", tagQuery, false);
+document.querySelector("#beautyBtn").addEventListener("click", tagQuery, false);
