@@ -1,26 +1,40 @@
-const kitchenBtn = document.querySelector("#kitchenBtn");
-
-kitchenBtn.addEventListener("click", event => {
-  event.preventDefault();
-  alert("I have been clicked");
-
-  fetch("/api/products/kitchen")
+const tagQuery = event => {
+  const tag = event.target.getAttribute("data-id");
+  fetch(`/api/products/${tag}`)
     .then(response => {
       return response.json();
     })
     .then(json => {
-      console.log(json);
+      json.forEach(listing => {
+        console.log(listing.listingId);
+        fetch(`/api/products/${listing.listingId}/image`)
+          .then(response => {
+            return response.json();
+          })
+          .then(imageURL => {
+            const title = listing.title;
+            const titleP = document.createElement("p");
+            titleP.textContent = title;
 
-      const title = json.title;
-      const titleP = document.createElement("p");
-      titleP.textContent = title;
+            const description = listing.description;
+            const descriptionP = document.createElement("p");
+            descriptionP.textContent = description;
 
-      const description = json.description;
-      const descriptionP = document.createElement("p");
-      descriptionP.textContent = description;
+            const imageTag = document.createElement("img");
+            imageTag.src = imageURL;
 
-      const image = json.url;
-      const imageTag = document.createElement("img");
-      imageTag.src = image;
-    });
-});
+            // NEED TO PUT CODE TO INSERT INTO HTML HERE
+          })
+          .catch(error => console.log(error));
+      });
+    })
+    .catch(error => console.log(error));
+};
+
+document
+  .querySelector("#kitchenBtn")
+  .addEventListener("click", tagQuery, false);
+
+document
+  .querySelector("#bathroomBtn")
+  .addEventListener("click", tagQuery, false);
