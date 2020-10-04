@@ -3,6 +3,7 @@ form.login {
   margin-top: 50px;
 }
 @import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap")
 *
 {
     margin: 0;
@@ -20,6 +21,8 @@ footer
   width: 100%;
   bottom: 0;
   text-align: center;
+  padding-top: 25px;
+  color: white;
 }
 .products footer
 {
@@ -27,6 +30,8 @@ footer
   -webkit-linear-gradient(125deg, transparent 30%, #EEEDD5),
   -webkit-linear-gradient(45deg, #44A08D, #093637);
   text-align: center;
+  padding-top: 25px;
+  color: white;
 }
 .solar footer
 {
@@ -34,6 +39,8 @@ footer
   -webkit-linear-gradient(125deg, transparent 30%, #8A2387),
   -webkit-linear-gradient(45deg, #E94057, #F27121);
   text-align: center;
+  padding-top: 25px;
+  color: white;
 }
 .wind footer
 {
@@ -41,6 +48,8 @@ footer
   -webkit-linear-gradient(125deg, transparent 30%, #7ea5c6),
   -webkit-linear-gradient(45deg, #6c349a, #ae5db6);
   text-align: center;
+  padding-top: 25px;
+  color: white;
 }
 .mainpage
 {
@@ -65,28 +74,33 @@ footer
     top: 0;
     right: 60px;
     height: 100%;
-    opacity: 70%;
 }
 .mainpage .content
 {
     position: relative;
-    max-width: 650px;
+    width: 60%;
     z-index: 1;
     padding-left: 50px;
+    font-family: 'Open Sans Condensed', sans-serif;
 }
 .mainpage .content h2
 {
     color: orange;
-    font-size: 4em;
+    text-shadow: 2px 2px 4px rgb(161, 124, 31);
+    font-size: 5em;
     font-weight: 700;
     line-height: 1.1em;
+    width: 650px;
 }
 .mainpage .content p
 {
     color: white;
+    text-shadow: 2px 2px 4px #000000;
     font-size: 1.5em;
+    font-style: Open Sans Condensed;
     margin: 20px 0 10px;
 }
+
 .mainpage .content button 
 {
     color: #ffffff;
