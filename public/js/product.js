@@ -31,10 +31,8 @@ const tagQuery = event => {
     .catch(error => console.log(error));
 };
 
-document
-  .querySelector("#kitchenBtn")
-  .addEventListener("click", tagQuery, false);
+document.querySelector("#kitchenBtn").addEventListener("click", tagQuery, false);
 
-document
-  .querySelector("#bathroomBtn")
-  .addEventListener("click", tagQuery, false);
+document.querySelector("#bathroomBtn").addEventListener("click", tagQuery, false);
+
+document.querySelector("#beautyBtn").addEventListener("click", tagQuery, false);
