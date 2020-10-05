@@ -1,0 +1,32 @@
+<section id="signup">
+    <div class="hero-image4">
+        <div class="hero-text4">
+            <h1 style="font-size:80px;">Register</h1>
+        </div>
+    </div>
+
+  <form class="form-4 signup">
+    <h1>Create an account</h1>
+    <p>
+        <label for="email">Email</label>
+        <input type="text" name="email" placeholder="Email" id="email-input" required>
+    </p>
+    <p>
+        <label for="password">Password</label>
+        <input type="password" name='password' placeholder="Password"  id="password-input" required> 
+    </p>
+
+    <p>
+        <label for="optin"></label><span>Opt in for our newsletter</span>
+        <input type="checkbox" name="optin" id="optin-input">
+    </p>
+
+    <p>
+        <input type="submit" name="submit" value="Continue">
+    </p>       
+  </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/signup.js"></script>
+  {{>navigationbar}}
+  {{>footer}}
+</section>  
