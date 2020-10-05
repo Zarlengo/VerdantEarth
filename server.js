@@ -4,7 +4,7 @@ const session = require("express-session");
 const articles = require("./config/newsApi.js");
 const handlebars = require("express-handlebars");
 // Requiring passport as we've configured it
-// const passport = require("./config/passport");
+const passport = require("./config/passport");
 
 // Allows env variables in development
 if (process.env.NODE_ENV !== "production") {
@@ -25,8 +25,8 @@ app.use(
   session({ secret: "keyboard cat", resave: true, saveUninitialized: true })
 );
 
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(passport.initialize());
 app.use(passport.session());
