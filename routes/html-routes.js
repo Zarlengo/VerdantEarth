@@ -19,9 +19,6 @@ module.exports = function(app) {
   app.get("/wind", (req, res) => {
     res.render("wind", { hello: "hello" });
   });
-  app.get("*", (req, res) => {
-    res.render("index", { hello: "hello" });
-  });
   app.get("/login", (req, res) => {
     res.render("login", { hello: "hello" });
   });
@@ -30,5 +27,8 @@ module.exports = function(app) {
   });
   app.get("/profile", (req, res) => {
     res.render("profile", { hello: "hello" });
+  });
+  app.get("*", (req, res) => {
+    res.render("index", { hello: "hello" });
   });
 };
