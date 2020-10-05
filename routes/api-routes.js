@@ -82,6 +82,8 @@ module.exports = function(app) {
   });
 
   app.get("/api/products/:tag", (req, res) => {
+    console.log(req.params.tag);
+    console.log("tag");
     db.products
       .findAll({
         where: {
@@ -108,21 +110,18 @@ module.exports = function(app) {
   // PUT route for updating users search history  ***********place holders for now*****************
   app.put("/api/user/:id", (req, res) => {
     db.user
-      .update(
-        {},
-        {
-          where: {
-            id: req.params.id
-          }
+      .update(req.body, {
+        where: {
+          id: req.params.id
         }
-      )
+      })
       .then(dbPost => {
         res.json(dbPost);
       });
   });
 
   // DELETE route for deleting user
-  app.delete("/api/posts/:id", (req, res) => {
+  app.delete("/api/user/:id", (req, res) => {
     db.user
       .destroy({
         where: {

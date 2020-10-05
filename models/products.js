@@ -3,7 +3,8 @@ module.exports = function(sequelize, DataTypes) {
   const products = sequelize.define("products", {
     listingId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     title: {
       type: DataTypes.STRING,
