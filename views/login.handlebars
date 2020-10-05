@@ -5,45 +5,23 @@
         </div>
     </div>
 
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-          <h2>Login Form</h2>
-          <form class="login">
-            <div class="form-group">
-              <label for="exampleInputEmail1">Email address</label>
-              <input type="email" class="form-control" id="email-input" placeholder="Email">
-            </div>
-            <div class="form-group">
-              <label for="exampleInputPassword1">Password</label>
-              <input type="password" class="form-control" id="password-input" placeholder="Password">
-            </div>
-            <button type="submit" class="btn btn-default">Login</button>
-          </form>
-          <br />
-          <p>Or sign up <a href="/">here</a></p>
-        </div>
-      </div>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/login.js"></script>
-  
-
-  <form class="form-4">
+  <form class="form-4 login">
     <h1>Login or Register</h1>
     <p>
         <label for="login">Username or email</label>
-        <input type="text" name="login" placeholder="Username or email" required>
+        <input type="text" name="login" placeholder="Username or email" id="email-input" required>
     </p>
     <p>
         <label for="password">Password</label>
-        <input type="password" name='password' placeholder="Password" required> 
+        <input type="password" name='password' placeholder="Password"  id="password-input" required> 
     </p>
 
     <p>
         <input type="submit" name="submit" value="Continue">
     </p>       
   </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/login.js"></script>
   {{>navigationbar}}
   {{>footer}}
 </section>  
