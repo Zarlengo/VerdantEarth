@@ -638,6 +638,18 @@ input:checked + .slider:before {
   }
 }
 
+.article-card {
+  width: 500px;
+  height: 300px;
+  padding: 5px;
+  border: 1px solid var(--dark-background-color);
+  border-radius: 5px;
+}
+
+.article-picture {
+  width: 500px;
+  height: 300px;
+}
 /* End Hexagons */
 /* fork on github button */
 #fork{
