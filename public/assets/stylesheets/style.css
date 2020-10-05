@@ -1,0 +1,17 @@
+form.signup,
+form.login {
+  margin-top: 50px;
+}
+
+.article-card {
+  width: 500px;
+  height: 300px;
+  padding: 5px;
+  border: 1px solid var(--dark-background-color);
+  border-radius: 5px;
+}
+
+.article-picture {
+  width: 500px;
+  height: 300px;
+}

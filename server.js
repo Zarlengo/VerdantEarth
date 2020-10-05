@@ -1,8 +1,10 @@
 // Requiring necessary npm packages
 const express = require("express");
 const session = require("express-session");
+const exphbs = require("express-handlebars");
+const articles = require("./config/newsApi.js");
 // Requiring passport as we've configured it
-const passport = require("./config/passport");
+// const passport = require("./config/passport");
 
 // Setting up port and requiring models for syncing
 const PORT = process.env.PORT || 8080;
@@ -17,8 +19,12 @@ app.use(express.static("public"));
 app.use(
   session({ secret: "keyboard cat", resave: true, saveUninitialized: true })
 );
-app.use(passport.initialize());
-app.use(passport.session());
+
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 // Requiring our routes
 require("./routes/html-routes.js")(app);
@@ -26,6 +32,8 @@ require("./routes/api-routes.js")(app);
 
 // Syncing our database and logging a message to the user upon success
 db.sequelize.sync().then(() => {
+  console.log(articles);
+  articles(db.articles);
   app.listen(PORT, () => {
     console.log(
       "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
