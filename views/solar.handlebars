@@ -8,8 +8,18 @@
 
 <p>Page Content..</p>
 {{>solarbutton}}
+<section class="article-cards">
+  {{#each articles}}
+    <div class="article-card fade" id="article-id-{{this.dataValues.id}}" href={{this.dataValues.url}}>
+      <img class="article-picture" src="{{this.dataValues.imageUrl}}" alt="Solar energy image" href="{{this.dataValues.url}}">
+      <div class="article" href="{{this.dataValues.url}}">{{this.dataValues.title}}</div>
+    </div>
+  {{/each}}
+</section>
+
 {{>footer}}
 </section>
-    
 
+<script type="text/javascript" src="./js/articles.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
