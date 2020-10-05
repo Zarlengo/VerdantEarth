@@ -119,7 +119,7 @@ module.exports = function(app) {
   });
 
   // DELETE route for deleting user
-  app.delete("/api/posts/:id", (req, res) => {
+  app.delete("/api/user/:id", (req, res) => {
     db.user
       .destroy({
         where: {
