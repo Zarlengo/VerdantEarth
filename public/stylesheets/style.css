@@ -702,5 +702,57 @@ input:checked + .slider:before {
   transform: translateX(0) skewX(-45deg);
 }
 
+.card {
+  position: relative;
+  margin: 10px;
+  padding: 10px;
+  background-color: #fff;
+  -webkit-box-shadow: 3px 3px 5px 4px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow:    3px 3px 5px 4px #ccc;  /* Firefox 3.5 - 3.6 */
+  box-shadow:         3px 3px 5px 4px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+  border-radius: 2px;
+  width: 300px;
+  color: black
+}
 
+.card .cardImage img {
+  width: 100%
+}
 
+.card .cardImage .cardTitle {
+  color: #fff;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  max-width: 100%;
+  padding: 24px;
+  font-weight: bold;
+}
+
+.card .cardTitle {
+  display: flex;
+  font-size: 24px;
+  font-weight: bold;
+  color: #093637;
+  font-stretch: expanded;
+  justify-content: space-evenly;
+}
+
+.card .cardDesc {
+  padding: 24px;
+  border-radius: 0 0 2px 2px;
+}
+
+.card .cardURL {
+  background-color: inherit;
+  border-top: 1px solid rgba(160,160,160,0.2);
+  position: relative;
+  padding: 16px 24px;
+}
+
+.product-container {
+  display: flex;
+  width:  100%;
+  flex-wrap: wrap;
+  justify-content: center;
+}
