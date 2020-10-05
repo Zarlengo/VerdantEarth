@@ -1,23 +1,14 @@
 {
   "development": {
     "username": "root",
-<<<<<<< HEAD
-    "password": "6198HawkS6198!",
-    "database": "verdantdb",
-=======
     "password": "password",
     "database": "VerdantEarth",
->>>>>>> master
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-<<<<<<< HEAD
-    "password": "6198HawkS6198!",
-=======
     "password": "password",
->>>>>>> master
     "database": "database_test",
     "host": "127.0.0.1",
     "dialect": "mysql"
