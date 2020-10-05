@@ -3,7 +3,6 @@ const geoIPLookupURL = "https://json.geoiplookup.io/";
 fetch(geoIPLookupURL)
   .then(response => response.json())
   .then(result => {
-    console.log(result);
     const locationString = `${result.city}, ${result.region} ${result.country_code}`;
     document.querySelector("#location").textContent = locationString;
   });
@@ -45,16 +44,16 @@ function userInput() {
       }
     }
     if (expCheck) {
-      currentWeatherAPI(userArray, "lat_long", loadCity);
+      getSolar(userArray, "lat_long");
       return;
     }
   }
 
-  // All other inputs assumed city string (doesn't work with city, state only)
+  // All other inputs assumed city string
   getSolar(userText, "name_string");
 }
 
-// Adds a listener to the GPS button to allow loading of weather based on GPS coordinates
+// Adds a listener to the GPS button to allow loading based on GPS coordinates
 document.querySelector(".location-icon").addEventListener(
   "click",
   () => {
@@ -65,20 +64,41 @@ document.querySelector(".location-icon").addEventListener(
   false
 );
 
-// Function to get the latitude and longitude from the browser and load weather
+// Function to get the latitude and longitude from the browser
 function loadLatLong(result) {
   getSolar([result.coords.latitude, result.coords.longitude], "lat_long");
 }
 
 function getSolar(location, locationType) {
   switch (locationType) {
-    case "lat_long":
-      apiURL = `api/solar/lat_long/${location}`;
-      break;
-    case "name_string":
-    default:
-      apiURL = `api/solar/name/${location}`;
-      break;
+  case "lat_long":
+    parameters = {
+      lat: location[0],
+      lon: location[1]
+    };
+    fetch(`/api/google/${JSON.stringify(parameters)}`)
+      .then(response => response.json())
+      .then(result => document.querySelector("#location").textContent = result);
+    break;
+  case "name_string":
+  default:
+    parameters = {
+      address: location
+    };
+    break;
   }
-  fetch(URL).then(result => console.log(result));
+  fetch(`/api/solar/${JSON.stringify(parameters)}`)
+    .then(response => {console.log(response); return response.json();})
+    .then(result => console.log(result));
 }
+
+// Adds a listener to the Irradiance
+document.querySelector(".location-icon").addEventListener(
+  "click",
+  () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(loadLatLong);
+    }
+  },
+  false
+);

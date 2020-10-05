@@ -3,7 +3,12 @@ const db = require("../models");
 const passport = require("../config/passport");
 const Op = db.Sequelize.Op;
 const Products = require("../config/etsyAPI.js");
-products = new Products(db.products);
+new Products(db.products);
+const NREL = require("../config/nrel.js");
+const nrel = new NREL();
+const Google = require("../config/google.js");
+const google = new Google();
+
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -129,5 +134,17 @@ module.exports = function(app) {
       .then(dbPost => {
         res.json(dbPost);
       });
+  });
+
+  app.get("/api/solar/:parameters", (req, res) => {
+    nrel.getAPI("solarResource", req.params.parameters)
+      .then(response => res.json(response.outputs.avg_dni.annual));
+  });
+
+  app.get("/api/google/:parameters", (req, res) => {
+    const location = JSON.parse(req.params.parameters);
+    console.log(`${location.lat},${location.lon}`);
+    google.getCity(`${location.lat},${location.lon}`)
+      .then(response => res.json(response.results[0].address_components));
   });
 };
