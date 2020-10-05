@@ -2,10 +2,11 @@ form.signup,
 form.login {
   margin-top: 50px;
 }
+
 @import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap")
-*
-{
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap");
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -414,11 +415,29 @@ a:hover .button:after {
 }
 
 .windpage h1 
-{ color: #DFBF84; font-family: 'Orienta', sans-serif; font-size: 65px; font-weight: normal; line-height: 60px; margin: 10px 0 20px; text-transform: uppercase; text-shadow: 2px 2px 0 #000, margin: 10px 0 24px; text-align: center; margin: 90px;; 
+{ 
+  color: #DFBF84; 
+  font-family: 'Orienta', sans-serif; 
+  font-size: 65px; 
+  font-weight: normal; 
+  line-height: 60px; 
+  margin: 10px 0 20px; 
+  text-transform: uppercase; 
+  text-shadow: 2px 2px 0 #000; 
+  margin: 10px 0 24px; 
+  text-align: center;
 }
 
 .windpage h2 
-{ font-size: 30px; letter-spacing: -1px; color: #DFBF84; text-transform: uppercase; text-shadow: 1px 1px 0 #000, margin: 10px 0 24px; text-align: center; line-height: 50px; 
+{ 
+  font-size: 30px; 
+  letter-spacing: -1px; 
+  color: #DFBF84; 
+  text-transform: uppercase; 
+  text-shadow: 1px 1px 0 #000;
+  margin: 10px 0 24px; 
+  text-align: center; 
+  line-height: 50px; 
 
 }
 
@@ -470,10 +489,23 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-.windpage p { color: #DFBF84; font-family: 'Orienta', sans-serif; font-size: 16px; line-height: 24px; margin: 0 0 24px; text-align: center; margin: 60px }
+.windpage p { 
+  color: #DFBF84; 
+  font-family: 'Orienta', sans-serif; 
+  font-size: 16px; 
+  line-height: 24px; 
+  margin: 0 0 24px; 
+  text-align: center;
+}
 
 
-.windpage a { color: #e8d4a7; text-decoration: none; text-align: center; padding: 15px; font-size: 16px; }
+.windpage a { 
+  color: #e8d4a7; 
+  text-decoration: none; 
+  text-align: center; 
+  padding: 15px; 
+  font-size: 16px; 
+}
 
 
 .windpage a:hover { color: #be9fd3; text-decoration: blink; }
@@ -481,7 +513,6 @@ input:checked + .slider:before {
 /* Hexagons */
 #hexGrid {
   overflow: hidden;
-  float: left
   width: 60%;
   margin: 0 auto;
   padding: 0.866% 0;
