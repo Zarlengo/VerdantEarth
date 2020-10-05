@@ -4,14 +4,14 @@ showSlides();
 function showSlides() {
   let i;
   console.log("showing");
-  const slides = document.querySelector(".article-card");
+  const slides = document.querySelectorAll(".article-card");
   for (i = 0; i < slides.length; i++) {
-    slides[i].addClass("article-hide");
+    slides[i].style.display = "none";
   }
   slideIndex++;
   if (slideIndex > slides.length) {
     slideIndex = 1;
   }
-  slides[slideIndex - 1].addClass("article-block");
-  setTimeout(showSlides, 2000); // Change image every 2 seconds
+  slides[slideIndex - 1].style.display = "block";
+  setTimeout(showSlides, 5000); // Change image every 5 seconds
 }

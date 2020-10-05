@@ -4,9 +4,10 @@ require("dotenv").config();
 module.exports = function seedArticlesDb(articles) {
   const newsApi = new NewsApi(process.env.NEWS_API_KEY);
   const searchTerms = {
-    terms: "reusable, home, items, eliminate, waste, environment, recycle",
+    terms: "reusable, home, items",
     id: 1
   };
+  // terms: "reusable, home, items, eliminate, waste, environment, recycle",
 
   console.log(searchTerms.terms);
   newsApi.v2
