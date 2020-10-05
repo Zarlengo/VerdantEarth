@@ -1,6 +1,3 @@
-const NewsApi = require("newsapi");
-require("dotenv").config();
-
 module.exports = function seedArticlesDb(articles) {
   const newsApi = new NewsApi(process.env.NEWS_API_KEY);
   const searchTerms = {
@@ -25,7 +22,6 @@ module.exports = function seedArticlesDb(articles) {
           imageUrl: article.urlToImage,
           typeId: searchTerms.id
         });
-        // console.log(article);
       });
     });
   return articles;
