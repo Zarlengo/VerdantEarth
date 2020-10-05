@@ -2,7 +2,7 @@ const db = require("../models");
 const passport = require("../config/passport");
 const Op = db.Sequelize.Op;
 const Products = require("../config/etsyAPI.js");
-let products = new Products(db.products);
+products = new Products(db.products);
 
 module.exports = function(app) {
   app.post("/api/articles", (req, res) => {
