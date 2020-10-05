@@ -15,24 +15,22 @@
     
  </section>
 
- <section>
-   <div class="article-cards">
-    {{#each articles}}
-      <div class="article-card" id="article-id-{{this.dataValues.id}}">
-        <img class="article-picture" src="{{this.dataValues.imageUrl}}" alt="here's an image">
-        <a href="{{this.dataValues.url}}" class="article" target="_blank">{{this.dataValues.title}}</a>
-      </div>
-    {{/each}}
-</div>
-
- </section>
 
  {{>productbutton}}
- {{>footer}}
- 
- <script src= './js/product.js'>
- 
+</section>
 
- </script>
- {{!-- <script type="text/javascript" src="./js/articles.js"></script> --}}
+<section class="article-cards">
+  {{#each articles}}
+    <div class="article-card" id="article-id-{{this.dataValues.id}}">
+      <img class="article-picture" src="{{this.dataValues.imageUrl}}" alt="here's an image">
+      <a href="{{this.dataValues.url}}" class="article" target="_blank">{{this.dataValues.title}}</a>
+    </div>
+  {{/each}}
+  {{!-- <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a> --}}
+</section>
 
+{{>footer}}
+ 
+<script src='./js/product.js'></script>
+<script type="text/javascript" src="./js/articles.js"></script>

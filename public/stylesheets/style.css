@@ -522,6 +522,7 @@ input:checked + .slider:before {
 }
 
 
+
 /*** HEX CONTENT **********************************************************************/
 
 .hex img {
@@ -644,11 +645,35 @@ input:checked + .slider:before {
   padding: 5px;
   border: 1px solid var(--dark-background-color);
   border-radius: 5px;
+  display: none;
 }
 
 .article-picture {
   width: 500px;
   height: 300px;
+}
+
+.article-cards {
+  width: 800px;
+  position: relative;
+  margin: auto;
+  height: 300px;
+
+}
+
+.article-block {
+  display: block;
+}
+
+.article-hide {
+  display: none;
+}
+
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
 }
 /* End Hexagons */
 /* fork on github button */

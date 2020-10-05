@@ -5,18 +5,7 @@ const db = require("../models");
 
 module.exports = function(app) {
   app.get("/", (req, res) => {
-    // If the user already has an account send them to the members page
-    //if (req.user) {
-    //res.redirect("/members");
-    //}
-    // let hbsObj = {};
-    // db.articles.findAll({}).then(dbArticle => {
-    //   hbsObj = {
-    //     articles: dbArticle
-    //   };
-    //res.render("index", hbsObj);
     res.render("index", { hello: "hello" });
-    // });
   });
   app.get("/product", (req, res) => {
     let hbsObj = {};
