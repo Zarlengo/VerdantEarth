@@ -20,7 +20,7 @@ module.exports = function(app) {
       });
   });
 
-  app.get("/api/articles/", (req, res) => {
+  app.get("/api/articles", (req, res) => {
     db.articles.findAll({}).then(dbArticle => {
       res.json(dbArticle);
     });
