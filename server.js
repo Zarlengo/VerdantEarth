@@ -1,10 +1,19 @@
 // Requiring necessary npm packages
 const express = require("express");
 const session = require("express-session");
+<<<<<<< HEAD
 const exphbs = require("express-handlebars");
 const articles = require("./config/newsApi.js");
+=======
+const handlebars = require("express-handlebars");
+>>>>>>> master
 // Requiring passport as we've configured it
 // const passport = require("./config/passport");
+
+// Allows env variables in development
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 
 // Setting up port and requiring models for syncing
 const PORT = process.env.PORT || 8080;
@@ -19,6 +28,7 @@ app.use(express.static("public"));
 app.use(
   session({ secret: "keyboard cat", resave: true, saveUninitialized: true })
 );
+<<<<<<< HEAD
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
@@ -26,6 +36,12 @@ app.set("view engine", "handlebars");
 // app.use(passport.initialize());
 // app.use(passport.session());
 
+=======
+app.use(passport.initialize());
+app.use(passport.session());
+app.engine("handlebars", handlebars({ defaultlayout: "main" }));
+app.set("view engine", "handlebars");
+>>>>>>> master
 // Requiring our routes
 require("./routes/html-routes.js")(app);
 require("./routes/api-routes.js")(app);
