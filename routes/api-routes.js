@@ -82,6 +82,8 @@ module.exports = function(app) {
   });
 
   app.get("/api/products/:tag", (req, res) => {
+    console.log(req.params.tag);
+    console.log("tag");
     db.products
       .findAll({
         where: {
