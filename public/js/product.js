@@ -1,31 +1,53 @@
 const tagQuery = event => {
-  const tag = event.target.getAttribute("data-id");
+  const tag = event.currentTarget.getAttribute("data-id");
+  console.log(`/api/products/${tag}`);
   fetch(`/api/products/${tag}`)
     .then(response => {
       return response.json();
     })
     .then(json => {
+      console.log(json);
+      const prodContainer = document.querySelector(".product-container");
+      prodContainer.innerHTML = "";
       json.forEach(listing => {
-        console.log(listing.listingId);
-        fetch(`/api/products/${listing.listingId}/image`)
-          .then(response => {
-            return response.json();
-          })
-          .then(imageURL => {
-            const title = listing.title;
-            const titleP = document.createElement("p");
-            titleP.textContent = title;
+        const newDiv = document.createElement("a");
+        newDiv.setAttribute("class", "card");
+        let title = listing.title;
+        if (title.length > 150) {
+          title = title.substring(0, 150) + "...";
+        }
+        const titleSpan = document.createElement("span");
+        titleSpan.setAttribute("class", "cardTitle");
+        const titleP = document.createElement("p");
+        titleP.setAttribute("class", "cardTitle");
+        titleP.textContent = title;
+        newDiv.appendChild(titleP);
+        titleP.appendChild(titleSpan);
 
-            const description = listing.description;
-            const descriptionP = document.createElement("p");
-            descriptionP.textContent = description;
+        let description = listing.description;
+        if (description.length > 150) {
+          description = description.substring(0, 150) + "...";
+        }
+        const descDiv = document.createElement("div");
+        descDiv.setAttribute("class", "cardDesc");
+        const descriptionP = document.createElement("p");
+        descriptionP.textContent = description;
+        newDiv.appendChild(descDiv);
+        descDiv.appendChild(descriptionP);
 
-            const imageTag = document.createElement("img");
-            imageTag.src = imageURL;
+        const imageDiv = document.createElement("div");
+        imageDiv.setAttribute("class", "cardImage");
+        const imageTag = document.createElement("img");
+        imageTag.src = listing.imageURL;
+        newDiv.prepend(imageDiv);
+        imageDiv.appendChild(imageTag);
 
-            // NEED TO PUT CODE TO INSERT INTO HTML HERE
-          })
-          .catch(error => console.log(error));
+        const urlDiv = document.createElement("div");
+        urlDiv.setAttribute("class", "cardURL");
+
+        newDiv.setAttribute("href", listing.url);
+
+        prodContainer.appendChild(newDiv);
       });
     })
     .catch(error => console.log(error));

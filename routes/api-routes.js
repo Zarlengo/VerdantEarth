@@ -82,6 +82,8 @@ module.exports = function(app) {
   });
 
   app.get("/api/products/:tag", (req, res) => {
+    console.log(req.params.tag);
+    console.log("tag");
     db.products
       .findAll({
         where: {
@@ -119,7 +121,7 @@ module.exports = function(app) {
   });
 
   // DELETE route for deleting user
-  app.delete("/api/posts/:id", (req, res) => {
+  app.delete("/api/user/:id", (req, res) => {
     db.user
       .destroy({
         where: {
