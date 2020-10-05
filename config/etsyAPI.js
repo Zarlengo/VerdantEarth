@@ -12,7 +12,7 @@ module.exports = class ETSY {
       this.fetch(listingURL)
         .then(response => response.json())
         .then(results => results.results)
-        .then(listingArray => {
+        .then(async listingArray => {
           listingArray.forEach(listing => {
             this.products.create({
               listingId: listing.listing_id,
@@ -47,8 +47,13 @@ module.exports = class ETSY {
               })
               .catch(error => console.log(error));
           });
+          await this.sleep(1000);
         })
         .catch(err => console.log(err));
     });
+  }
+
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 };
