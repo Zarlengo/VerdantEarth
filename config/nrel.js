@@ -1,5 +1,6 @@
 module.exports = class NREL {
   constructor() {
+    this.fetch = require("node-fetch");
     this.authorizationString = `api_key=${process.env.NREL_API}`;
     this.baseURL = "https://developer.nrel.gov";
     this.URLobject = {
@@ -22,11 +23,12 @@ module.exports = class NREL {
   }
 
   URLConstruct(URLtype, additionsObject) {
-    const URL = `${this.baseURL}${this.URL_object[URLtype]}${this.responseFormat}?${authorization}`;
+    additionsObject = JSON.parse(additionsObject);
+    const URL = `${this.baseURL}${this.URLobject[URLtype]}${this.responseFormat}?${this.authorizationString}`;
     if (additionsObject === {}) {
       return URL;
     }
-    const additionsKeys = Object.keys(additions_object);
+    const additionsKeys = Object.keys(additionsObject);
     let queryString = "";
     additionsKeys.forEach(element => {
       queryString = queryString.concat(
@@ -36,13 +38,15 @@ module.exports = class NREL {
     return `${URL}${queryString}`;
   }
 
-  getAPI(ReferenceFunction, URLtype, parameters) {
-    fetch(this.URLConstruct(URLtype, parameters))
-      .then(response => {
-        return response.json();
-      })
-      .then(request => {
-        ReferenceFunction(request.results);
-      });
+  getAPI(URLtype, parameters) {
+    return new Promise ((resolve, reject) => {
+      this.fetch(this.URLConstruct(URLtype, parameters))
+        .then(response => {
+          resolve(response.json());
+        })
+        .catch(error => {
+          reject(console.log(error));
+        });
+    });
   }
 };

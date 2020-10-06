@@ -37,6 +37,7 @@ module.exports = function(app) {
       });
   });
   app.get("/wind", (req, res) => {
+    res.render("wind", { hello: "hello" });
     let hbsObj = {};
     db.articles
       .findAll({
