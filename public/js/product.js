@@ -1,12 +1,10 @@
 const tagQuery = event => {
   const tag = event.currentTarget.getAttribute("data-id");
-  console.log(`/api/products/${tag}`);
   fetch(`/api/products/${tag}`)
     .then(response => {
       return response.json();
     })
     .then(json => {
-      console.log(json);
       const prodContainer = document.querySelector(".product-container");
       prodContainer.innerHTML = "";
       json.forEach(listing => {

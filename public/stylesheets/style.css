@@ -182,18 +182,16 @@ section {
     right: 0;
     width: 60px;
     height: 60px;
-    background-color: #596869;
     background-image: url("../Images/arrowleft.png");
     background-size: cover;
     cursor: pointer;
     z-index: 1000;
+    transition-duration: 1s;
 }
 .menuToggle.active
 {
-    background-color: black;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 25px;
+  transform: rotate(180deg);
+  transition-duration: 1s;
 }    
 .navigation 
 {
@@ -544,12 +542,12 @@ input:checked + .slider:before {
 
 /* Hexagons */
 #hexGrid {
-  overflow: hidden;
   width: 60%;
   margin: 0 auto;
   padding: 0.866% 0;
   font-family: 'Raleway', sans-serif;
   font-size: 15px;
+  margin-bottom: 100px;
 }
 
 #hexGrid:after {
@@ -841,6 +839,7 @@ input:checked + .slider:before {
 }
 
 .product-container {
+  margin-top: 50px;
   display: flex;
   width:  100%;
   flex-wrap: wrap;

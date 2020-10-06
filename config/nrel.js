@@ -39,7 +39,7 @@ module.exports = class NREL {
   }
 
   getAPI(URLtype, parameters) {
-    return new Promise ((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.fetch(this.URLConstruct(URLtype, parameters))
         .then(response => {
           resolve(response.json());

@@ -1,8 +1,9 @@
-<div class="article-cards">
+<section class="article-cards">
   {{#each articles}}
-    <div class="article-card fade" id="article-id-{{this.dataValues.id}}">
-      <img class="article-picture" src="{{this.dataValues.imageUrl}}" alt="here's an image">
-      <a href="{{this.dataValues.url}}" class="article" target="_blank">{{this.dataValues.title}}</a>
+    <div class="article-card fade" id="article-id-{{this.dataValues.id}}" href={{this.dataValues.url}}>
+      <img class="article-picture" src="{{this.dataValues.imageUrl}}" alt="Article image" href="{{this.dataValues.url}}">
+      <div class="article" href="{{this.dataValues.url}}">{{this.dataValues.title}}</div>
     </div>
   {{/each}}
-</div>
+</section>
+<script type="text/javascript" src="./js/articles.js"></script>

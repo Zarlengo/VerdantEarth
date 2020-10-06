@@ -7,8 +7,10 @@ module.exports = class Google {
   }
 
   getCity(latlng) {
-    return new Promise ((resolve, reject) => {
-      this.fetch(`${this.baseURL}${this.responseFormat}?latlng=${latlng}&${this.authorizationString}`)
+    return new Promise((resolve, reject) => {
+      this.fetch(
+        `${this.baseURL}${this.responseFormat}?latlng=${latlng}&${this.authorizationString}`
+      )
         .then(response => {
           resolve(response.json());
         })
