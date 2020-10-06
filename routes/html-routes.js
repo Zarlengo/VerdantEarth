@@ -26,6 +26,10 @@ module.exports = function(app) {
     res.render("signup", { hello: "hello" });
   });
   app.get("/profile", (req, res) => {
-    res.render("profile", { hello: "hello" });
+    console.log(req.user);
+    if (req.user) {
+      res.render("profile", req.user);
+    }
+    res.render("index", { hello: "hello" });
   });
 };
