@@ -1,23 +1,57 @@
-// Requiring path to so we can use relative routes to our HTML files
-
-// Requiring our custom middleware for checking if a user is logged in
+const db = require("../models");
 
 module.exports = function(app) {
   app.get("/", (req, res) => {
-    // If the user already has an account send them to the members page
-    //if (req.user) {
-    //res.redirect("/members");
-    //}
     res.render("index", { hello: "hello" });
   });
   app.get("/product", (req, res) => {
-    res.render("product", { hello: "hello" });
+    let hbsObj = {};
+    db.articles
+      .findAll({
+        where: {
+          typeId: 1
+        },
+        limit: 8
+      })
+      .then(dbArticle => {
+        hbsObj = {
+          articles: dbArticle
+        };
+        res.render("product", hbsObj);
+      });
   });
   app.get("/solar", (req, res) => {
-    res.render("solar", { hello: "hello" });
+    let hbsObj = {};
+    db.articles
+      .findAll({
+        where: {
+          typeId: 2
+        },
+        limit: 8
+      })
+      .then(dbArticle => {
+        hbsObj = {
+          articles: dbArticle
+        };
+        res.render("solar", hbsObj);
+      });
   });
   app.get("/wind", (req, res) => {
     res.render("wind", { hello: "hello" });
+    let hbsObj = {};
+    db.articles
+      .findAll({
+        where: {
+          typeId: 3
+        },
+        limit: 8
+      })
+      .then(dbArticle => {
+        hbsObj = {
+          articles: dbArticle
+        };
+        res.render("wind", hbsObj);
+      });
   });
   app.get("/login", (req, res) => {
     res.render("login", { hello: "hello" });
@@ -26,6 +60,10 @@ module.exports = function(app) {
     res.render("signup", { hello: "hello" });
   });
   app.get("/profile", (req, res) => {
-    res.render("profile", { hello: "hello" });
+    console.log(req.user);
+    if (req.user) {
+      res.render("profile", req.user);
+    }
+    res.render("index", { hello: "hello" });
   });
 };
