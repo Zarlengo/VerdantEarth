@@ -79,18 +79,34 @@ function getSolar(location, locationType) {
     };
     fetch(`/api/google/${JSON.stringify(parameters)}`)
       .then(response => response.json())
-      .then(result => document.querySelector("#location").textContent = result);
+      .then(
+        result => {
+          console.log();
+          document.querySelector("#location").textContent = `${result[2].short_name}, ${result[4].short_name} ${result[5].short_name}`;
+          getUsage(result[4].short_name);
+        });
     break;
   case "name_string":
   default:
+    document.querySelector("#location").textContent = location;
     parameters = {
       address: location
     };
     break;
   }
   fetch(`/api/solar/${JSON.stringify(parameters)}`)
-    .then(response => {console.log(response); return response.json();})
-    .then(result => console.log(result));
+    .then(response => {
+      console.log(response);
+      return response.json();
+    })
+    .then(result => {
+      console.log(result);
+      document.querySelector("#irradiance-result").textContent = result;
+      panelSize =
+        parseFloat(document.querySelector("#power").textContent * 12) /
+        (result * 365);
+      document.querySelector("#solarPanel").textContent = panelSize;
+    });
 }
 
 // Adds a listener to the Irradiance
@@ -159,7 +175,8 @@ function getUsage(stateCode) {
     WY: 894
   };
   if (stateCode in stateList) {
-    return stateList[stateCode];
+    document.querySelector("#power").textContent = stateList[stateCode];
+    return;
   }
-  return 909;
+  document.querySelector("#power").textContent = 909;
 }
