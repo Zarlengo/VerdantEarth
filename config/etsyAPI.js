@@ -12,8 +12,12 @@ module.exports = class ETSY {
       this.fetch(listingURL)
         .then(response => response.json())
         .then(results => results.results)
-        .then(async listingArray => {
-          listingArray.forEach(listing => {
+        .then(listingArray => {
+          setTimeout(() => {
+            console.log("ETSY seed complete");
+          }, listingArray.length * 1000);
+          for (let index = 0; index < listingArray.length; index++) {
+            const listing = listingArray[index];
             this.products.create({
               listingId: listing.listing_id,
               title: listing.title,
@@ -43,13 +47,12 @@ module.exports = class ETSY {
                           listingId: listing.listing_id
                         }
                       }
-                    }
-                  );
-                }
-              })
-              .catch(error => console.log(error));
-          });
-          await this.sleep(1000);
+                    );
+                  }
+                })
+                .catch(error => console.log(error));
+            }, index * 1000);
+          }
         })
         .catch(err => console.log(err));
     });

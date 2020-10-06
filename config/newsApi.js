@@ -17,7 +17,6 @@ module.exports = function seedArticlesDb(articles) {
       id: 3
     }
   ];
-  // terms: "reusable, home, items, eliminate, waste, environment, recycle",
 
   searchTerms.forEach(term => {
     newsApi.v2
