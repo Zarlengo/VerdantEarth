@@ -1,34 +1,39 @@
+<section>
+  <div class="hero-image4">
+        <div class="hero-text4">
+            <h1 style="font-size:80px;">Membership Page</h1>
+        </div>
+    </div>
 <div class="container">
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
-        <h2>Verdant Earth Membership<span class="member-name"></span></h2>
+        
         <div class="container">
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
-        <h2>Profile</h2>
-        <form class="login">
-          <div class="form-group">
-            <label for="FirstName" id="firstName">First Name</label>
-            <input type="input" class="form-control" placeholder="Click to change">
+        <h2 style="text-align: center;">Profile</h2>
+        <form class="form-4 login">
+          <div class="form5">
+            <span>Email</span>
+            <label for="email" id="email">Email address</label>
+            <input type="text" name="email" placeholder="Click to change" id= "email-input">
           </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1" id="email">Email address</label>
-            <input type="email" class="form-control" placeholder="Click to change">
+          <div class="form5">
+            <label for="password" id="password" >Password</label>
+            <input type="password" name='password' placeholder="Click to change"  id="password-input">
           </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1" id="password" >Password</label>
-            <input type="password" class="form-control" placeholder="Click to change">
-          </div>
-          <div class="form-group">
+          <div class="form5">
             <label for="emailToggle">Subscribe to <i>Are you Verdant?</i></label>
-            <label class="switch"><input type="checkbox"><span class="slider round"></span></label>
+            <label class="switch"><input type="checkbox" id="emailOptIn"><span class="slider round"></span></label>
           </div>
-          <button type="submit" class="btn btn-default">Submit</button>
+          <div>
+          <input type="submit" name="submit" value="Submit" >
+          </div>
         </form>
 
         <br />
         
-        <div>
+        <div style="text-align: center;">
         <h3>Your Verdant Experience</h3>
         Power Usage : <span id="powerUsage"></span>$/kWh
         Solar Index : <span id="solarIndex"></span>Solar Flux Units
@@ -44,4 +49,9 @@
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
   <script type="text/javascript" src="js/profile.js"></script>
+  </section>
+
+
+
