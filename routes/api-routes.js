@@ -147,6 +147,8 @@ module.exports = function(app) {
     console.log(`${location.lat},${location.lon}`);
     google.getCity(`${location.lat},${location.lon}`)
       .then(response => res.json(response.results[0].address_components));
+  });
+  
   // Route for getting some data about our user to be used client side
   app.get("/api/user_data", (req, res) => {
     if (!req.user) {
