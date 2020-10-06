@@ -43,14 +43,6 @@ module.exports = class ETSY {
                           listingId: listing.listing_id
                         }
                       }
-<<<<<<< HEAD
-                    );
-                  }
-                })
-                .catch(error => console.log(error));
-            }, index * 1000);
-          }
-=======
                     }
                   );
                 }
@@ -58,7 +50,6 @@ module.exports = class ETSY {
               .catch(error => console.log(error));
           });
           await this.sleep(1000);
->>>>>>> 1d0058ae4c107e13caca1f9bedfaf9e7b6394dc5
         })
         .catch(err => console.log(err));
     });
