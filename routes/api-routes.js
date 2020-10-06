@@ -1,4 +1,3 @@
-// Requiring our models and passport as we've configured it
 const db = require("../models");
 const passport = require("../config/passport");
 const Op = db.Sequelize.Op;
@@ -6,6 +5,20 @@ const Products = require("../config/etsyAPI.js");
 products = new Products(db.products);
 
 module.exports = function(app) {
+  app.post("/api/articles", (req, res) => {
+    db.articles
+      .create({
+        author: req.body.author,
+        title: req.body.title,
+        description: req.body.description,
+        url: req.body.url,
+        imageUrl: req.body.imageUrl,
+        typeId: req.body.typeId
+      })
+      .then(dbArticle => {
+        res.json(dbArticle);
+      });
+  });
   // Using the passport.authenticate middleware with our local strategy.
   // If the user has valid login credentials, send them to the members page.
   // Otherwise the user will be sent an error
@@ -34,25 +47,10 @@ module.exports = function(app) {
       });
   });
 
-  // Route for logging user out
-  app.get("/logout", (req, res) => {
-    req.logout();
-    res.redirect("/");
-  });
-
-  // Route for getting some data about our user to be used client side
-  app.get("/api/user_data", (req, res) => {
-    if (!req.user) {
-      // The user is not logged in, send back an empty object
-      res.json({});
-    } else {
-      // Otherwise send back the user's email and id
-      // Sending back a password, even a hashed password, isn't a good idea
-      res.json({
-        email: req.user.email,
-        id: req.user.id
-      });
-    }
+  app.get("/api/articles", (req, res) => {
+    db.articles.findAll({}).then(dbArticle => {
+      res.json(dbArticle);
+    });
   });
 
   // CREATE route for seeding the DATABASE, fix these later
@@ -132,5 +130,20 @@ module.exports = function(app) {
       .then(dbPost => {
         res.json(dbPost);
       });
+  });
+
+  // Route for getting some data about our user to be used client side
+  app.get("/api/user_data", (req, res) => {
+    if (!req.user) {
+      // The user is not logged in, send back an empty object
+      res.json({});
+    } else {
+      // Otherwise send back the user's email and id
+      // Sending back a password, even a hashed password, isn't a good idea
+      res.json({
+        email: req.user.email,
+        emailOptIn: req.user.emailOptIn
+      });
+    }
   });
 };

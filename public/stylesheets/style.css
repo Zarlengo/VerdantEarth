@@ -585,6 +585,7 @@ input:checked + .slider:before {
 }
 
 
+
 /*** HEX CONTENT **********************************************************************/
 
 .hex img {
@@ -699,6 +700,63 @@ input:checked + .slider:before {
   #hexGrid {
     font-size: 13px;
   }
+}
+
+.article-card {
+  width: 800px;
+  height: 300px;
+  padding: 5px;
+  border: 1px solid var(--dark-background-color);
+  border-radius: 5px;
+  display: none;
+  cursor: pointer;
+}
+
+.article-picture {
+  width: 800px;
+  height: 300px;
+}
+
+.article-cards {
+  width: 800px;
+  position: relative;
+  margin: auto;
+  height: 300px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 25px;
+  margin-bottom: 25px;
+
+}
+
+.article {
+  color: white;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  background-color: grey;
+}
+
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
 }
 
 /* End Hexagons */
