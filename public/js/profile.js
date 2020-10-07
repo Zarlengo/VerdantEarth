@@ -1,22 +1,21 @@
 /* eslint-disable no-unused-vars */
-$(document).ready(() => {
-  // This file just does a GET request to figure out which user is logged in
-  // and updates the HTML on the page
-  $.get("/api/user_data").then(data => {
-    $("#firstName").text(data.firstName);
-    $("#email").text(data.email);
-    $("#password").text(data.password);
-    $("#emailOptIn").text(data.emailOptIn);
-    $("#powerUsage").text(data.powerUsage);
-    $("#utilityRate").text(data.utilityRate);
-  });
+
+// This file just does a GET request to figure out which user is logged in
+// and updates the HTML on the page
+fetch("/api/user_data").then(data => {
+  document.querySelector("#firstName").text(data.firstName);
+  document.querySelector("#email").text(data.email);
+  document.querySelector("#password").text(data.password);
+  document.querySelector("#emailOptIn").text(data.emailOptIn);
+  document.querySelector("#powerUsage").text(data.powerUsage);
+  document.querySelector("#utilityRate").text(data.utilityRate);
 });
 
-// const email = $("input#email");
-// const password = $("input#password");
-// const firstName = $("input#firstName");
-// const emailOptIn = $("input#emailOptIn");
-// const loginForm = $("form.login");
+// const email = document.querySelector("input#email");
+// const password = document.querySelector("input#password");
+// const firstName = document.querySelector("input#firstName");
+// const emailOptIn = document.querySelector("input#emailOptIn");
+// const loginForm = document.querySelector("form.login");
 
 // loginForm.on("submit", event => {
 //   event.preventDefault();

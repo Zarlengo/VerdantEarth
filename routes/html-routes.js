@@ -51,20 +51,39 @@ module.exports = function(app) {
   app.get("/login", (req, res) => {
     if (req.user) {
       res.redirect("/profile");
+    } else {
+      res.render("login", { hello: "world" });
     }
-    res.render("login", { hello: "world" });
   });
 
   // Route to create a new user, checks if already logged in and redirects to profile if they are
   app.get("/signup", (req, res) => {
     if (req.user) {
       res.redirect("/profile");
+    } else {
+      res.render("signup", { hello: "world" });
     }
-    res.render("signup", { hello: "world" });
   });
 
   // Route to the user's profile page, verifies that the user is already logged in or redirects to the login page if they are not
   app.get("/profile", isAuthenticated, (req, res) => {
     res.render("profile", req.user);
+  });
+
+  // For all other pages not in these routes, redirects to home page
+  app.get("*", (req, res) => {
+    let userId;
+    if (typeof req.user !== "undefined") {
+      userId = req.user.id;
+    } else {
+      userId = null;
+    }
+    console.log(
+      "invalid page request",
+      req.params,
+      req.body,
+      `User Id: ${userId}`
+    );
+    res.redirect("/");
   });
 };

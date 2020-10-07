@@ -24,8 +24,14 @@ loginForm.addEventListener("submit", event => {
 // loginUser does a post to our "api/login" route and if successful, redirects us the the members page
 function loginUser(email, password) {
   fetch("/api/login", {
-    email: email,
-    password: password
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      email: email,
+      password: password
+    })
   })
     .then(() => {
       window.location.replace("/profile");
