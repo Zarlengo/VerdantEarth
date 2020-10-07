@@ -5,7 +5,7 @@ const handlebars = require("express-handlebars");
 // Requiring passport as we've configured it
 const passport = require("./config/passport");
 
-// Allows env variables in development
+// Allows env variables in development on local machines. Uses .ENV in the root directory
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
@@ -19,18 +19,20 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
+
 // We need to use sessions to keep track of our user's login status
 app.use(
-  session({ secret: "keyboard cat", resave: true, saveUninitialized: true })
+  session({ secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true })
 );
 
+// Initializes passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(passport.initialize());
-app.use(passport.session());
+// Initializes handlebars
 app.engine("handlebars", handlebars({ defaultlayout: "main" }));
 app.set("view engine", "handlebars");
+
 // Requiring our routes
 require("./routes/api-routes.js")(app);
 require("./routes/html-routes.js")(app);

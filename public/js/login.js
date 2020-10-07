@@ -11,6 +11,7 @@ loginForm.addEventListener("submit", event => {
     password: passwordInput.value.trim()
   };
 
+  // Check for empty email or password
   if (!userData.email || !userData.password) {
     return;
   }

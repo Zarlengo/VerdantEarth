@@ -1,11 +1,13 @@
+// Creates the product model
 module.exports = function(sequelize, DataTypes) {
-  // How do we want to filter out our favorites?
   const products = sequelize.define("products", {
+    // The listing ID cannot be null and must not already be in the database (prevents duplicates when seeding)
     listingId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       unique: true
     },
+    // The title cannot be null
     title: {
       type: DataTypes.STRING,
       allowNull: false
@@ -16,6 +18,7 @@ module.exports = function(sequelize, DataTypes) {
     tags: {
       type: DataTypes.TEXT
     },
+    // The URL cannot be null
     url: {
       type: DataTypes.STRING,
       allowNull: false

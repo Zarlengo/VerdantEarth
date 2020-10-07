@@ -1,24 +1,35 @@
+// Class to handle the ETSY api call
 module.exports = class ETSY {
   constructor(products) {
+    // Load dependencies
     this.fetch = require("node-fetch");
-    this.products = products;
+    
+    // Tag types to search ETSY for
     const listingURLs = [
       `https://openapi.etsy.com/v2/listings/active?api_key=${process.env.ETSY_key}&tags=zerowaste`,
       `https://openapi.etsy.com/v2/listings/active?api_key=${process.env.ETSY_key}&tags=compostable`,
       `https://openapi.etsy.com/v2/listings/active?api_key=${process.env.ETSY_key}&tags=reusable`,
       `https://openapi.etsy.com/v2/listings/active?api_key=${process.env.ETSY_key}&tags=recyled`
     ];
+    
+    // Cycles through each URL
     listingURLs.forEach(listingURL => {
       this.fetch(listingURL)
         .then(response => response.json())
         .then(results => results.results)
         .then(listingArray => {
+          
           setTimeout(() => {
+            // Notification that the URL has uploaded all the articles
             console.log("ETSY seed complete");
           }, listingArray.length * 1000);
+
+          // Cycles through each tag array
           for (let index = 0; index < listingArray.length; index++) {
             const listing = listingArray[index];
-            this.products.create({
+
+            // Adds the product to the database
+            products.create({
               listingId: listing.listing_id,
               title: listing.title,
               description: listing.description,
@@ -26,6 +37,8 @@ module.exports = class ETSY {
               numFavorers: listing.num_favorers,
               tags: JSON.stringify(listing.tags)
             });
+
+            // A timer delay in the ETSY API call as there is a limit of 10 per second with the free level
             setTimeout(() => {
               this.fetch(
                 `https://openapi.etsy.com/v2/listings/${listing.listing_id}/images?api_key=${process.env.ETSY_key}&type=json`
@@ -36,9 +49,10 @@ module.exports = class ETSY {
                   }
                   return null;
                 })
+                // Since the initial ETSY object does not include a product image URL, ETSY is called again to acquire that URL
                 .then(imageObject => {
                   if (imageObject !== null) {
-                    this.products.update(
+                    products.update(
                       {
                         imageURL: imageObject.results[0].url_570xN
                       },

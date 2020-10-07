@@ -1,7 +1,11 @@
+// Class to handle the seeding of the articles into the webpage
 module.exports = class Articles {
   constructor(articles) {
+    // Loads dependencies
     const NewsApi = require("newsapi");
     const newsApi = new NewsApi(process.env.NEWS_API_KEY);
+
+    // Defines the article search criteria
     const searchTerms = [
       {
         terms: "reusable, home, items, waste, eliminate",
@@ -17,6 +21,7 @@ module.exports = class Articles {
       }
     ];
 
+    // Cycles through each article and uploads them to the article table
     searchTerms.forEach(term => {
       newsApi.v2
         .everything({

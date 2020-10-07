@@ -1,3 +1,4 @@
+// Creates the article model
 module.exports = function(sequelize, DataTypes) {
   const articles = sequelize.define("articles", {
     author: DataTypes.STRING,

@@ -46,7 +46,6 @@ module.exports = function(app) {
       .then(dbArticle => res.render("wind", { articles: dbArticle }));
   });
 
-  /***** Routes to handle the user preferences *****/
   // Route to log in the user, checks if already logged in and redirects to profile if they are
   app.get("/login", (req, res) => {
     if (req.user) {
@@ -56,7 +55,7 @@ module.exports = function(app) {
     }
   });
 
-  // Route to create a new user, checks if already logged in and redirects to profile if they are
+  // Route to create a new user, checks if already logged in and redirects to profile if they are logged in
   app.get("/signup", (req, res) => {
     if (req.user) {
       res.redirect("/profile");
@@ -78,6 +77,7 @@ module.exports = function(app) {
     } else {
       userId = null;
     }
+    // Logs the requesting page and information
     console.log(
       "invalid page request",
       req.params,
