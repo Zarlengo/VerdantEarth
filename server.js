@@ -37,8 +37,15 @@ app.set("view engine", "handlebars");
 require("./routes/api-routes.js")(app);
 require("./routes/html-routes.js")(app);
 
+// Loading the ETSY class and the articles class
+const Products = require("./config/etsyAPI.js");
+const Articles = require("./config/newsApi.js");
+
 // Syncing our database and logging a message to the user upon success
 db.sequelize.sync().then(() => {
+  // Seeding the products and articles database
+  new Products(db.products);
+  new Articles(db.articles);
   app.listen(PORT, () => {
     console.log(
       "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",

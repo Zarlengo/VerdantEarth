@@ -5,10 +5,6 @@ const Op = db.Sequelize.Op;
 // Loading the module to handle the user login settings
 const passport = require("../config/passport");
 
-// Loading the ETSY class and seeding the database with products
-const Products = require("../config/etsyAPI.js");
-new Products(db.products);
-
 // Loading the NREL class and object for use in solar calculations
 const NREL = require("../config/nrel.js");
 const nrel = new NREL();
@@ -16,10 +12,6 @@ const nrel = new NREL();
 // Loading the Google class for use in determining location cities & states
 const Google = require("../config/google.js");
 const google = new Google();
-
-// Loading the articles class and seeding the database
-const Articles = require("../config/newsApi.js");
-new Articles(db.articles);
 
 module.exports = function(app) {
   /***** API Routes to handle operations relating to the user preferences *****/
@@ -150,17 +142,6 @@ module.exports = function(app) {
       .then(dbArticle => {
         res.json(dbArticle);
       });
-  });
-
-  // READ route for seeing the best example of our favorite products
-  app.get("/api/products/category/:category", (req, res) => {
-    db.Post.findAll({
-      where: {
-        category: req.params.category
-      }
-    }).then(dbPost => {
-      res.json(dbPost);
-    });
   });
 
   // Route to get all products with a specific tag

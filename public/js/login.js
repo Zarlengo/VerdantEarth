@@ -34,11 +34,34 @@ function loginUser(email, password) {
       password: password
     })
   })
-    .then(() => {
-      window.location.replace("/profile");
-      // If there's an error, log the error
+    .then(response => {
+      if (!response.ok) {
+        modal.style.display = "block";
+      } else {
+        window.location.replace("/profile");
+      }
     })
     .catch(err => {
       console.log(err);
     });
 }
+
+const modal = document.querySelector("#myModal");
+const span = document.querySelector("#modal-close");
+span.addEventListener(
+  "click",
+  () => {
+    modal.style.display = "none";
+  },
+  false
+);
+
+window.addEventListener(
+  "click",
+  event => {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  },
+  false
+);

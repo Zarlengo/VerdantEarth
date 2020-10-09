@@ -4,6 +4,4 @@ fetch("/api/user_data").then(data => {
   document.querySelector("#email").text(data.email);
   document.querySelector("#password").text(data.password);
   document.querySelector("#emailOptIn").text(data.emailOptIn);
-  document.querySelector("#powerUsage").text(data.powerUsage);
-  document.querySelector("#utilityRate").text(data.utilityRate);
 });
