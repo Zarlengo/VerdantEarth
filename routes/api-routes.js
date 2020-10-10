@@ -51,7 +51,6 @@ module.exports = function(app) {
 
   // Route to update the user preferences
   app.put("/api/user/:id", (req, res) => {
-    console.log(req.body);
     // Need to find if there's a duplicate email in db
     db.User.update(req.body, {
       where: {
@@ -114,24 +113,6 @@ module.exports = function(app) {
     db.articles.findAll({}).then(dbArticle => {
       res.json(dbArticle);
     });
-  });
-
-  // Route to load the database with articles
-  /* IS THIS ACTUALLY CALLED? */
-  app.post("/api/articles", (req, res) => {
-    console.log("api-routes line 122...this is actually called");
-    db.articles
-      .create({
-        author: req.body.author,
-        title: req.body.title,
-        description: req.body.description,
-        url: req.body.url,
-        imageUrl: req.body.imageUrl,
-        typeId: req.body.typeId
-      })
-      .then(dbArticle => {
-        res.json(dbArticle);
-      });
   });
 
   // Route to get articles of a category from the database

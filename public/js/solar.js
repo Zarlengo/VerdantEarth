@@ -87,7 +87,6 @@ function getSolar(location, locationType) {
       fetch(`/api/google/${JSON.stringify(parameters)}`)
         .then(response => response.json())
         .then(result => {
-          console.log();
           document.querySelector(
             "#location"
           ).textContent = `${result[2].short_name}, ${result[4].short_name} ${result[5].short_name}`;
@@ -102,11 +101,9 @@ function getSolar(location, locationType) {
       };
       break;
   }
-  console.log(parameters);
   // Calls the api to get the irradiance value for the location
   fetch(`/api/solar/${JSON.stringify(parameters)}`)
     .then(response => {
-      console.log(response);
       return response.json();
     })
     .then(result => {

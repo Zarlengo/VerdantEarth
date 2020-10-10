@@ -48,7 +48,6 @@ document.querySelector("#submit").addEventListener(
         }
         break;
       default:
-        console.log(emailOptIn.checked);
     }
 
     if (upload) {
@@ -58,8 +57,7 @@ document.querySelector("#submit").addEventListener(
           "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
-      }).then(response => console.log(response));
-      console.log(data);
+      });
     }
   },
   false
@@ -92,7 +90,7 @@ document.querySelector("#delete-confirm").addEventListener(
         headers: {
           "Content-Type": "application/json"
         }
-      }).then(response => console.log(response));
+      });
     }
   },
   false
