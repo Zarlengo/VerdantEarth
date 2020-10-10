@@ -105,7 +105,8 @@ function getSolar(location, locationType) {
   console.log(parameters);
   // Calls the api to get the irradiance value for the location
   fetch(`/api/solar/${JSON.stringify(parameters)}`)
-    .then(response => {console.log(response);
+    .then(response => {
+      console.log(response);
       return response.json();
     })
     .then(result => {

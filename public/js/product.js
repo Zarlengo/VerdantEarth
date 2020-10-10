@@ -9,14 +9,12 @@ const tagQuery = event => {
       return response.json();
     })
     .then(json => {
-
       // Object to place ETSY products and empties contents
       const prodContainer = document.querySelector(".product-container");
       prodContainer.innerHTML = "";
 
       // Cycles through each item returned from the API
       json.forEach(listing => {
-
         // Creates a new hyperlink object to contain all of the parts of the ETSY product
         const newDiv = document.createElement("a");
         newDiv.setAttribute("class", "card");

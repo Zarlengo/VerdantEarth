@@ -15,7 +15,6 @@ module.exports = class ETSY {
     products.findAll().then(results => {
       const currentIds = results.map(row => row.listingId);
 
-
       // Cycles through each URL
       listingURLs.forEach(listingURL => {
         this.fetch(listingURL)
