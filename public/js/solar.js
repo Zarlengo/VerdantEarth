@@ -7,6 +7,7 @@ fetch(geoIPLookupURL)
     const locationString = `${result.city}, ${result.region} ${result.country_code}`;
     document.querySelector("#location").textContent = locationString;
     getUsage(result.region);
+    getSolar(locationString, "name_string");
   });
 
 // Adds a listener to the search button or enter key press
@@ -85,12 +86,13 @@ function getSolar(location, locationType) {
     // Google API to convert lat/lon to city, region, country
     fetch(`/api/google/${JSON.stringify(parameters)}`)
       .then(response => response.json())
-      .then(
-        result => {
-          console.log();
-          document.querySelector("#location").textContent = `${result[2].short_name}, ${result[4].short_name} ${result[5].short_name}`;
-          getUsage(result[4].short_name);
-        });
+      .then(result => {
+        console.log();
+        document.querySelector(
+          "#location"
+        ).textContent = `${result[2].short_name}, ${result[4].short_name} ${result[5].short_name}`;
+        getUsage(result[4].short_name);
+      });
     break;
   case "name_string":
   default:
@@ -100,18 +102,21 @@ function getSolar(location, locationType) {
     };
     break;
   }
+  console.log(parameters);
   // Calls the api to get the irradiance value for the location
   fetch(`/api/solar/${JSON.stringify(parameters)}`)
-    .then(response => {
+    .then(response => {console.log(response);
       return response.json();
     })
     .then(result => {
       // Displays hte irradiance and calculates out the necessary solar panel size for the residence
       document.querySelector("#irradiance-result").textContent = result;
       panelSize =
-        parseFloat(document.querySelector("#power").textContent * 12) /
+        parseFloat(document.querySelector("#power").value * 12) /
         (result * 365);
-      document.querySelector("#solarPanel").textContent = panelSize;
+      document.querySelector(
+        "#solarPanel"
+      ).textContent = `${panelSize}`.substring(0, 5);
     });
 }
 
@@ -122,6 +127,14 @@ document.querySelector(".location-icon").addEventListener(
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(loadLatLong);
     }
+  },
+  false
+);
+
+document.querySelector("#calculate").addEventListener(
+  "click",
+  () => {
+    getSolar(document.querySelector("#location").textContent, "name_string");
   },
   false
 );
@@ -184,9 +197,9 @@ function getUsage(stateCode) {
 
   // Places the average power usage into the HTML
   if (stateCode in stateList) {
-    document.querySelector("#power").textContent = stateList[stateCode];
+    document.querySelector("#power").value = stateList[stateCode];
     return;
   }
   // Default household power usage in the USA
-  document.querySelector("#power").textContent = 909;
+  document.querySelector("#power").value = 909;
 }

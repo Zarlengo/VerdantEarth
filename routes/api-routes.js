@@ -26,6 +26,11 @@ module.exports = function(app) {
     });
   });
 
+  app.get("/api/logout", (req, res) => {
+    req.logout();
+    res.redirect("/");
+  });
+
   // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
   // otherwise send back an error
@@ -46,28 +51,27 @@ module.exports = function(app) {
 
   // Route to update the user preferences
   app.put("/api/user/:id", (req, res) => {
-    db.user
-      .update(req.body, {
-        where: {
-          id: req.params.id
-        }
-      })
-      .then(dbPost => {
-        res.json(dbPost);
-      });
+    console.log(req.body);
+    // Need to find if there's a duplicate email in db
+    db.User.update(req.body, {
+      where: {
+        id: req.params.id
+      }
+    }).then(dbPost => {
+      res.json(dbPost);
+    });
   });
 
   // DELETE route for deleting user
   app.delete("/api/user/:id", (req, res) => {
-    db.user
-      .destroy({
-        where: {
-          id: req.params.id
-        }
-      })
-      .then(dbPost => {
-        res.json(dbPost);
-      });
+    db.User.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then(() => {
+      req.logout();
+      res.redirect("/");
+    });
   });
 
   // Route for getting some data about our user to be used client side
@@ -79,8 +83,8 @@ module.exports = function(app) {
       // Otherwise send back the user's email and id
       // Sending back a password, even a hashed password, isn't a good idea
       res.json({
-        id: req.body.id,
-        firstName: req.body.firstName,
+        id: req.user.id,
+        firstName: req.user.firstName,
         email: req.user.email,
         emailOptIn: req.user.emailOptIn
       });
@@ -96,11 +100,11 @@ module.exports = function(app) {
       // Otherwise send back the user's email and id
       // Sending back a password, even a hashed password, isn't a good idea
       res.json({
-        id: req.body.id,
-        firstName: req.body.firstName,
+        id: req.user.id,
+        firstName: req.user.firstName,
         solarIndex: req.user.solarIndex,
         powerUsage: req.user.powerUsage,
-        utilityRate: req.body.utilityRate
+        utilityRate: req.user.utilityRate
       });
     }
   });

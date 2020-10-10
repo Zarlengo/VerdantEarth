@@ -1,0 +1,22 @@
+.calculator {
+    width: 100%;
+}
+
+.calculator-table {
+    margin: auto;
+}
+
+.left-col {
+    text-align: right;
+    padding-right: 5px;
+}
+
+.center-col {
+    text-align: center;
+}
+
+#calculate {
+    padding: 3px 10px;
+    color: #ffffff;
+    background: #36453B;
+}
