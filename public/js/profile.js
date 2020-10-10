@@ -35,20 +35,20 @@ document.querySelector("#submit").addEventListener(
       upload = true;
     }
     switch (emailOptIn.getAttribute("data-id")) {
-    case "true":
-      if (emailOptIn.checked === false) {
-        data.emailOptIn = emailOptIn.checked;
-        upload = true;
-      }
-      break;
-    case "false":
-      if (emailOptIn.checked === true) {
-        data.emailOptIn = emailOptIn.checked;
-        upload = true;
-      }
-      break;
-    default:
-      console.log(emailOptIn.checked);
+      case "true":
+        if (emailOptIn.checked === false) {
+          data.emailOptIn = emailOptIn.checked;
+          upload = true;
+        }
+        break;
+      case "false":
+        if (emailOptIn.checked === true) {
+          data.emailOptIn = emailOptIn.checked;
+          upload = true;
+        }
+        break;
+      default:
+        console.log(emailOptIn.checked);
     }
 
     if (upload) {

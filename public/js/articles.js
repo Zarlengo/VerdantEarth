@@ -1,5 +1,5 @@
 let slideIndex = 0;
-const slideTimer = 5000;   // Change image every 5 seconds
+const slideTimer = 5000; // Change image every 5 seconds
 showSlides();
 
 // Function to hide and show the articles

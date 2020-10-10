@@ -78,29 +78,29 @@ function loadLatLong(result) {
 function getSolar(location, locationType) {
   // If latitude & longitude are provided, send to the google API to get the city name
   switch (locationType) {
-  case "lat_long":
-    parameters = {
-      lat: location[0],
-      lon: location[1]
-    };
-    // Google API to convert lat/lon to city, region, country
-    fetch(`/api/google/${JSON.stringify(parameters)}`)
-      .then(response => response.json())
-      .then(result => {
-        console.log();
-        document.querySelector(
-          "#location"
-        ).textContent = `${result[2].short_name}, ${result[4].short_name} ${result[5].short_name}`;
-        getUsage(result[4].short_name);
-      });
-    break;
-  case "name_string":
-  default:
-    document.querySelector("#location").textContent = location;
-    parameters = {
-      address: location
-    };
-    break;
+    case "lat_long":
+      parameters = {
+        lat: location[0],
+        lon: location[1]
+      };
+      // Google API to convert lat/lon to city, region, country
+      fetch(`/api/google/${JSON.stringify(parameters)}`)
+        .then(response => response.json())
+        .then(result => {
+          console.log();
+          document.querySelector(
+            "#location"
+          ).textContent = `${result[2].short_name}, ${result[4].short_name} ${result[5].short_name}`;
+          getUsage(result[4].short_name);
+        });
+      break;
+    case "name_string":
+    default:
+      document.querySelector("#location").textContent = location;
+      parameters = {
+        address: location
+      };
+      break;
   }
   console.log(parameters);
   // Calls the api to get the irradiance value for the location
