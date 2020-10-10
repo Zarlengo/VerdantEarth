@@ -1,53 +1,117 @@
-/* eslint-disable no-unused-vars */
-$(document).ready(() => {
-  // This file just does a GET request to figure out which user is logged in
-  // and updates the HTML on the page
-  $.get("/api/user_data").then(data => {
-    $("#firstName").text(data.firstName);
-    $("#email").text(data.email);
-    $("#password").text(data.password);
-    $("#emailOptIn").text(data.emailOptIn);
-    $("#powerUsage").text(data.powerUsage);
-    $("#utilityRate").text(data.utilityRate);
+const firstName = document.querySelector("#firstName-input");
+const email = document.querySelector("#email-input");
+const password = document.querySelector("#password-input");
+const emailOptIn = document.querySelector("#emailOptIn");
+const id = document.querySelector("#profile-table");
+
+// Makes an API call when the page initially loads to obtain the user information
+fetch("/api/user_data")
+  .then(response => response.json())
+  .then(data => {
+    document.querySelector("#firstName").textContent = data.firstName;
+    document.querySelector("#email").textContent = data.email;
+    document.querySelector("#emailOptIn").checked = data.emailOptIn;
+    document
+      .querySelector("#emailOptIn")
+      .setAttribute("data-id", data.emailOptIn);
+    document.querySelector("#profile-table").setAttribute("data-id", data.id);
+  });
+
+document.querySelector("#submit").addEventListener(
+  "click",
+  () => {
+    const data = {};
+    let upload = false;
+    if (firstName.value.length !== 0) {
+      data.firstName = firstName.value;
+      upload = true;
+    }
+    if (email.value.length !== 0) {
+      data.email = email.value;
+      upload = true;
+    }
+    if (password.value.length !== 0) {
+      data.password = password.value;
+      upload = true;
+    }
+    switch (emailOptIn.getAttribute("data-id")) {
+      case "true":
+        if (emailOptIn.checked === false) {
+          data.emailOptIn = emailOptIn.checked;
+          upload = true;
+        }
+        break;
+      case "false":
+        if (emailOptIn.checked === true) {
+          data.emailOptIn = emailOptIn.checked;
+          upload = true;
+        }
+        break;
+      default:
+    }
+
+    if (upload) {
+      fetch(`/api/user/${id.getAttribute("data-id")}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+    }
+  },
+  false
+);
+
+document.querySelector("#logout").addEventListener("click", () => {
+  fetch("/api/logout").then(response => {
+    if (!response.ok) {
+      modal.style.display = "block";
+    } else {
+      window.location.replace("/");
+    }
   });
 });
 
-// const email = $("input#email");
-// const password = $("input#password");
-// const firstName = $("input#firstName");
-// const emailOptIn = $("input#emailOptIn");
-// const loginForm = $("form.login");
+document.querySelector("#delete").addEventListener(
+  "click",
+  () => {
+    document.querySelector("#myModal").style.display = "block";
+  },
+  false
+);
 
-// loginForm.on("submit", event => {
-//   event.preventDefault();
-//   const userData = {
-//     email: email.val().trim(),
-//     password: password.val().trim(),
-//     firstName: firstName.val().trim(),
-//     emailOptIn: emailOptIn //BOOLEAN?
-//   };
+document.querySelector("#delete-confirm").addEventListener(
+  "click",
+  () => {
+    if (true) {
+      fetch(`/api/user/${id.getAttribute("data-id")}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+    }
+  },
+  false
+);
 
-//   loginUser(
-//     userData.email,
-//     userData.password,
-//     userData.firstName,
-//     userData.emailOptIn
-//   );
-// });
+const modal = document.querySelector("#myModal");
+const span = document.querySelector("#modal-close");
+span.addEventListener(
+  "click",
+  () => {
+    modal.style.display = "none";
+  },
+  false
+);
 
-// function loginUser(email, password, firstName, emailOptIn) {
-//   fetch(`/api/user/${email}`, {
-//     password: password,
-//     firstName: firstName,
-//     emailOptIn: emailOptIn
-//   })
-//     .then(() => {
-//       window.location.replace("/profile");
-//       // If there's an error, log the error
-//     })
-//     .catch(err => {
-//       console.log(err);
-//     });
-// }
-
-// updateProfile();
+window.addEventListener(
+  "click",
+  event => {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  },
+  false
+);

@@ -1,57 +1,58 @@
+<link rel="stylesheet" href="/stylesheets/profile.css">
 <section>
   <div class="hero-image4">
-        <div class="hero-text4">
-            <h1 style="font-size:80px;">Membership Page</h1>
-        </div>
+    <div class="hero-text4">
+      <h1 style="font-size:80px;">Membership Page</h1>
     </div>
-<div class="container">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        
-        <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <h2 style="text-align: center;">Profile</h2>
-        <form class="form-4 login">
-          <div class="form5">
-            <span>Email</span>
-            <label for="email" id="email">Email address</label>
-            <input type="text" name="email" placeholder="Click to change" id= "email-input">
-          </div>
-          <div class="form5">
-            <label for="password" id="password" >Password</label>
-            <input type="password" name='password' placeholder="Click to change"  id="password-input">
-          </div>
-          <div class="form5">
-            <label for="emailToggle">Subscribe to <i>Are you Verdant?</i></label>
-            <label class="switch"><input type="checkbox" id="emailOptIn"><span class="slider round"></span></label>
-          </div>
-          <div>
-          <input type="submit" name="submit" value="Submit" >
-          </div>
-        </form>
-
-        <br />
-        
-        <div style="text-align: center;">
-        <h3>Your Verdant Experience</h3>
-        Power Usage : <span id="powerUsage"></span>$/kWh
-        Solar Index : <span id="solarIndex"></span>Solar Flux Units
-        Utility rate : $<span id="utilityRate"></span>
-        </div>
-       
+  </div>
+  
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span id="modal-close" class="close">&times;</span>
+        <h2>Purge account</h2>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to remove your account?</p>
+        <button type="submit" class="btn delete-btn" id="delete-confirm">Delete Account</button>
       </div>
     </div>
   </div>
 
-      </div>
+  <div class="container">
+    <div class="head-profile">
+      <span></span><h2 style="text-align: center;">Profile</h2><button id="logout" class="logout">Logout</button>
     </div>
+      <table class="profile" data-id="0" id="profile-table">
+        <tr>
+          <td><label for="firstName-input">Name:</label></td>
+          <td class="filled" id="firstName"></td>
+          <td><input type="text" name="firstName-input" placeholder="Click to change" id= "firstName-input"></td>
+        </tr>
+        <tr>
+          <td><label for="email-input">Email:</label></td>
+          <td class="filled" id="email"></td>
+          <td><input type="email" placeholder="Click to change" id= "email-input"></td>
+        </tr>
+        <tr>
+          <td><label for="password-input">Password:</label></td>
+          <td></td>
+          <td><input type="password" placeholder="Click to change" id= "password-input"></td>
+        </tr>
+        <tr>
+          <td><label for="emailOptIn">Subscribe to:<br><i>Are you Verdant?</i></td>
+          <td class="filled"><input type="checkbox" id="emailOptIn" data-id=""></td>
+          <td></td>
+        </tr>
+      </table>
+      <div class="btn-container">
+        <button type="submit" class="btn profile-btn" id="submit">Submit</button>
+      </div>
+    <br />
+      <div class="btn-container">
+        <button type="submit" class="btn delete-btn" id="delete">Delete Account</button>
+      </div>
   </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
   <script type="text/javascript" src="js/profile.js"></script>
   </section>
-
-
-

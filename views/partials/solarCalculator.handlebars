@@ -1,25 +1,40 @@
-<p>Location: <span id="location"></span></p>
-
-<div class="search-section">Search for a City:</div>
-
-    <link
-        rel="stylesheet"
-        href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-        crossorigin="anonymous"
-    />
-<div class="nav-search">
-    <input id="searchText" name="searchText" type="text" class="city-search">
-    <i class="fas fa-search search-icon"></i>
-    <i class="fas fa-location-arrow location-icon"></i>
-</div>
-<div>
-    <button id="irradiance">Get the Solar Irradiance</button>
-    <p>Solar Irradiance: [kWh / m2 / day]: </p><span id="irradiance-result"></span>
-    <p>Average household power usage [kWh / month]: <span id="power"></span>
-    <p>Needed solar panel sizing [m2]: <span id="solarPanel"></span>
-    {{!-- <p>Power needs - 100kw/day</p> --}}
-    {{!-- <p>(25kwH / day) / (3.15  kWh/m2/day) = 8 m2</p> --}}
-
-</div>
+<section class="calculator">
+    <table class="calculator-table">
+        <tr>
+            <td class="search-section left-col">Search for a City (US Only):</td>
+            <td>
+                <link
+                    rel="stylesheet"
+                    href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+                    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+                    crossorigin="anonymous"
+                />
+                <div class="nav-search">
+                    <input id="searchText" name="searchText" type="text" class="city-search">
+                    <i class="fas fa-search search-icon"></i>
+                    <i class="fas fa-location-arrow location-icon"></i>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="left-col">Location:</td>
+            <td id="location"></td>
+        </tr>
+        <tr>
+            <td class="left-col">Solar Irradiance: [kWh / m2 / day]:</td>
+            <td id="irradiance-result"></td>
+        </tr>
+        <tr>
+            <td class="left-col">Average household power usage [kWh / month]:</td>
+            <td><input id="power"></td>
+        </tr>
+        <tr>
+            <td class="left-col">Needed solar panel sizing [m2]: </td>
+            <td id="solarPanel"></td>
+        </tr>
+        <tr>
+            <td class="center-col" colspan="2"><button id="calculate">Calculate Panel Size</button></td>            
+        </tr>
+    </table>
+</section>
 <script src= './js/solar.js'></script>

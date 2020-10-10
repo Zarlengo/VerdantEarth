@@ -1,5 +1,5 @@
 "use strict";
-
+// Load all the dependencies
 const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
@@ -7,7 +7,10 @@ const basename = path.basename(module.filename);
 const env = process.env.NODE_ENV || "development";
 const config = require(__dirname + "/../config/config.json")[env];
 const db = {};
+db.Sequelize = Sequelize;
 
+
+// Checks if in production 
 if (config.use_env_variable) {
   db.sequelize = new Sequelize(process.env[config.use_env_variable]);
 } else {
@@ -19,6 +22,7 @@ if (config.use_env_variable) {
   );
 }
 
+// Cycles through each '.js' file within the models folder and adds the database information to the db object
 fs.readdirSync(__dirname)
   .filter(file => {
     return (
@@ -30,12 +34,11 @@ fs.readdirSync(__dirname)
     db[model.name] = model;
   });
 
+// Cycles throuh each database and creates any associations between tables
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }
 });
-
-db.Sequelize = Sequelize;
 
 module.exports = db;

@@ -1,3 +1,4 @@
+// Initial location determination based on the IP address location of the user
 const geoIPLookupURL = "https://json.geoiplookup.io/";
 
 fetch(geoIPLookupURL)
@@ -6,9 +7,10 @@ fetch(geoIPLookupURL)
     const locationString = `${result.city}, ${result.region} ${result.country_code}`;
     document.querySelector("#location").textContent = locationString;
     getUsage(result.region);
+    getSolar(locationString, "name_string");
   });
 
-// Adds a listener to the search button to allow loading based on GPS coordinates
+// Adds a listener to the search button or enter key press
 document
   .querySelector(".search-icon")
   .addEventListener("click", userInput, false);
@@ -22,7 +24,9 @@ document.querySelector("#searchText").addEventListener(
   false
 );
 
+// Function to handle the input request
 function userInput() {
+  // Gets the value of the user input
   const userText = document.querySelector("#searchText").value;
   document.querySelector("#searchText").value = "";
 
@@ -70,46 +74,51 @@ function loadLatLong(result) {
   getSolar([result.coords.latitude, result.coords.longitude], "lat_long");
 }
 
+// Function to get the solar irradiance after a location has been choosen
 function getSolar(location, locationType) {
+  // If latitude & longitude are provided, send to the google API to get the city name
   switch (locationType) {
-  case "lat_long":
-    parameters = {
-      lat: location[0],
-      lon: location[1]
-    };
-    fetch(`/api/google/${JSON.stringify(parameters)}`)
-      .then(response => response.json())
-      .then(
-        result => {
-          console.log();
-          document.querySelector("#location").textContent = `${result[2].short_name}, ${result[4].short_name} ${result[5].short_name}`;
+    case "lat_long":
+      parameters = {
+        lat: location[0],
+        lon: location[1]
+      };
+      // Google API to convert lat/lon to city, region, country
+      fetch(`/api/google/${JSON.stringify(parameters)}`)
+        .then(response => response.json())
+        .then(result => {
+          document.querySelector(
+            "#location"
+          ).textContent = `${result[2].short_name}, ${result[4].short_name} ${result[5].short_name}`;
           getUsage(result[4].short_name);
         });
-    break;
-  case "name_string":
-  default:
-    document.querySelector("#location").textContent = location;
-    parameters = {
-      address: location
-    };
-    break;
+      break;
+    case "name_string":
+    default:
+      document.querySelector("#location").textContent = location;
+      parameters = {
+        address: location
+      };
+      break;
   }
+  // Calls the api to get the irradiance value for the location
   fetch(`/api/solar/${JSON.stringify(parameters)}`)
     .then(response => {
-      console.log(response);
       return response.json();
     })
     .then(result => {
-      console.log(result);
+      // Displays hte irradiance and calculates out the necessary solar panel size for the residence
       document.querySelector("#irradiance-result").textContent = result;
       panelSize =
-        parseFloat(document.querySelector("#power").textContent * 12) /
+        parseFloat(document.querySelector("#power").value * 12) /
         (result * 365);
-      document.querySelector("#solarPanel").textContent = panelSize;
+      document.querySelector(
+        "#solarPanel"
+      ).textContent = `${panelSize}`.substring(0, 5);
     });
 }
 
-// Adds a listener to the Irradiance
+// Adds a listener to the Irradiance button
 document.querySelector(".location-icon").addEventListener(
   "click",
   () => {
@@ -120,6 +129,15 @@ document.querySelector(".location-icon").addEventListener(
   false
 );
 
+document.querySelector("#calculate").addEventListener(
+  "click",
+  () => {
+    getSolar(document.querySelector("#location").textContent, "name_string");
+  },
+  false
+);
+
+// Function which returns the average household power usage by USA state
 function getUsage(stateCode) {
   const stateList = {
     AL: 1211,
@@ -174,9 +192,12 @@ function getUsage(stateCode) {
     WI: 703,
     WY: 894
   };
+
+  // Places the average power usage into the HTML
   if (stateCode in stateList) {
-    document.querySelector("#power").textContent = stateList[stateCode];
+    document.querySelector("#power").value = stateList[stateCode];
     return;
   }
-  document.querySelector("#power").textContent = 909;
+  // Default household power usage in the USA
+  document.querySelector("#power").value = 909;
 }

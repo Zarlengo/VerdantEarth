@@ -1,11 +1,17 @@
+// Imports all of the database objects
 const db = require("../models");
 
+// Requiring our custom middleware for checking if a user is logged in
+const isAuthenticated = require("../config/middleware/isAuthenticated");
+
 module.exports = function(app) {
+  // Route for the main welcome page
   app.get("/", (req, res) => {
-    res.render("index", { hello: "hello" });
+    res.render("index", { hello: "world" });
   });
+
+  // Route for the products page, sends in the product related articles
   app.get("/product", (req, res) => {
-    let hbsObj = {};
     db.articles
       .findAll({
         where: {
@@ -13,15 +19,11 @@ module.exports = function(app) {
         },
         limit: 8
       })
-      .then(dbArticle => {
-        hbsObj = {
-          articles: dbArticle
-        };
-        res.render("product", hbsObj);
-      });
+      .then(dbArticle => res.render("product", { articles: dbArticle }));
   });
+
+  // Route for the solar power page, sends in the solar related articles
   app.get("/solar", (req, res) => {
-    let hbsObj = {};
     db.articles
       .findAll({
         where: {
@@ -29,16 +31,11 @@ module.exports = function(app) {
         },
         limit: 8
       })
-      .then(dbArticle => {
-        hbsObj = {
-          articles: dbArticle
-        };
-        res.render("solar", hbsObj);
-      });
+      .then(dbArticle => res.render("solar", { articles: dbArticle }));
   });
+
+  // Route for the wind power page, sends in the wind related articles
   app.get("/wind", (req, res) => {
-    res.render("wind", { hello: "hello" });
-    let hbsObj = {};
     db.articles
       .findAll({
         where: {
@@ -46,24 +43,47 @@ module.exports = function(app) {
         },
         limit: 8
       })
-      .then(dbArticle => {
-        hbsObj = {
-          articles: dbArticle
-        };
-        res.render("wind", hbsObj);
-      });
+      .then(dbArticle => res.render("wind", { articles: dbArticle }));
   });
+
+  // Route to log in the user, checks if already logged in and redirects to profile if they are
   app.get("/login", (req, res) => {
-    res.render("login", { hello: "hello" });
-  });
-  app.get("/signup", (req, res) => {
-    res.render("signup", { hello: "hello" });
-  });
-  app.get("/profile", (req, res) => {
-    console.log(req.user);
     if (req.user) {
-      res.render("profile", req.user);
+      res.redirect("/profile");
+    } else {
+      res.render("login", { hello: "world" });
     }
-    res.render("index", { hello: "hello" });
+  });
+
+  // Route to create a new user, checks if already logged in and redirects to profile if they are logged in
+  app.get("/signup", (req, res) => {
+    if (req.user) {
+      res.redirect("/profile");
+    } else {
+      res.render("signup", { hello: "world" });
+    }
+  });
+
+  // Route to the user's profile page, verifies that the user is already logged in or redirects to the login page if they are not
+  app.get("/profile", isAuthenticated, (req, res) => {
+    res.render("profile", req.user);
+  });
+
+  // For all other pages not in these routes, redirects to home page
+  app.get("*", (req, res) => {
+    let userId;
+    if (typeof req.user !== "undefined") {
+      userId = req.user.id;
+    } else {
+      userId = null;
+    }
+    // Logs the requesting page and information
+    console.log(
+      "invalid page request",
+      req.params,
+      req.body,
+      `User Id: ${userId}`
+    );
+    res.redirect("/");
   });
 };

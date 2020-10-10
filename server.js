@@ -1,12 +1,11 @@
 // Requiring necessary npm packages
 const express = require("express");
 const session = require("express-session");
-const articles = require("./config/newsApi.js");
 const handlebars = require("express-handlebars");
 // Requiring passport as we've configured it
 const passport = require("./config/passport");
 
-// Allows env variables in development
+// Allows env variables in development on local machines. Uses .ENV in the root directory
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
@@ -20,25 +19,37 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
+
 // We need to use sessions to keep track of our user's login status
 app.use(
-  session({ secret: "keyboard cat", resave: true, saveUninitialized: true })
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true
+  })
 );
 
+// Initializes passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(passport.initialize());
-app.use(passport.session());
+// Initializes handlebars
 app.engine("handlebars", handlebars({ defaultlayout: "main" }));
 app.set("view engine", "handlebars");
+
 // Requiring our routes
-require("./routes/html-routes.js")(app);
 require("./routes/api-routes.js")(app);
+require("./routes/html-routes.js")(app);
+
+// Loading the ETSY class and the articles class
+const Products = require("./config/etsyAPI.js");
+const Articles = require("./config/newsApi.js");
 
 // Syncing our database and logging a message to the user upon success
 db.sequelize.sync().then(() => {
-  articles(db.articles);
+  // Seeding the products and articles database
+  new Products(db.products);
+  new Articles(db.articles);
   app.listen(PORT, () => {
     console.log(
       "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",

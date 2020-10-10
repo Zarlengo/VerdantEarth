@@ -1,29 +1,20 @@
+// Loading the sequelize database settings
 const db = require("../models");
-const passport = require("../config/passport");
 const Op = db.Sequelize.Op;
-const Products = require("../config/etsyAPI.js");
-new Products(db.products);
+
+// Loading the module to handle the user login settings
+const passport = require("../config/passport");
+
+// Loading the NREL class and object for use in solar calculations
 const NREL = require("../config/nrel.js");
 const nrel = new NREL();
+
+// Loading the Google class for use in determining location cities & states
 const Google = require("../config/google.js");
 const google = new Google();
 
-
 module.exports = function(app) {
-  app.post("/api/articles", (req, res) => {
-    db.articles
-      .create({
-        author: req.body.author,
-        title: req.body.title,
-        description: req.body.description,
-        url: req.body.url,
-        imageUrl: req.body.imageUrl,
-        typeId: req.body.typeId
-      })
-      .then(dbArticle => {
-        res.json(dbArticle);
-      });
-  });
+  /***** API Routes to handle operations relating to the user preferences *****/
   // Using the passport.authenticate middleware with our local strategy.
   // If the user has valid login credentials, send them to the members page.
   // Otherwise the user will be sent an error
@@ -35,6 +26,11 @@ module.exports = function(app) {
     });
   });
 
+  app.get("/api/logout", (req, res) => {
+    req.logout();
+    res.redirect("/");
+  });
+
   // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
   // otherwise send back an error
@@ -42,6 +38,7 @@ module.exports = function(app) {
     db.User.create({
       email: req.body.email,
       password: req.body.password,
+      firstName: req.body.firstName,
       emailOptIn: req.body.emailOptIn
     })
       .then(() => {
@@ -52,42 +49,88 @@ module.exports = function(app) {
       });
   });
 
-  app.get("/api/articles", (req, res) => {
-    db.articles.findAll({}).then(dbArticle => {
-      res.json(dbArticle);
-    });
-  });
-
-  // CREATE route for seeding the DATABASE, fix these later
-  app.post("api/products", (req, res) => {
-    db.products
-      .create({
-        listingId: req.body.listing_id,
-        title: req.body.title,
-        description: req.body.description,
-        tags: req.body.tags,
-        url: req.body.url,
-        numFavorers: req.body.num_favorers,
-        taxonomyPath: req.body.taxonomy_path
-      })
-      .then(dbProducts => {
-        res.json(dbProducts);
-      });
-  });
-  // READ route for seeing the best example of our favorite products *********************NEED TO WORK ON**************
-  app.get("/api/products/category/:category", (req, res) => {
-    db.Post.findAll({
+  // Route to update the user preferences
+  app.put("/api/user/:id", (req, res) => {
+    // Need to find if there's a duplicate email in db
+    db.User.update(req.body, {
       where: {
-        category: req.params.category
+        id: req.params.id
       }
     }).then(dbPost => {
       res.json(dbPost);
     });
   });
 
+  // DELETE route for deleting user
+  app.delete("/api/user/:id", (req, res) => {
+    db.User.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then(() => {
+      req.logout();
+      res.redirect("/");
+    });
+  });
+
+  // Route for getting some data about our user to be used client side
+  app.get("/api/user_data", (req, res) => {
+    if (!req.user) {
+      // The user is not logged in, send back an empty object
+      res.json({});
+    } else {
+      // Otherwise send back the user's email and id
+      // Sending back a password, even a hashed password, isn't a good idea
+      res.json({
+        id: req.user.id,
+        firstName: req.user.firstName,
+        email: req.user.email,
+        emailOptIn: req.user.emailOptIn
+      });
+    }
+  });
+
+  // Route for getting solar data about our user to be used client side
+  app.get("/api/user_solar_data", (req, res) => {
+    if (!req.user) {
+      // The user is not logged in, send back an empty object
+      res.json({});
+    } else {
+      // Otherwise send back the user's email and id
+      // Sending back a password, even a hashed password, isn't a good idea
+      res.json({
+        id: req.user.id,
+        firstName: req.user.firstName,
+        solarIndex: req.user.solarIndex,
+        powerUsage: req.user.powerUsage,
+        utilityRate: req.user.utilityRate
+      });
+    }
+  });
+
+  // Route to get all articles from the database
+  app.get("/api/articles", (req, res) => {
+    db.articles.findAll({}).then(dbArticle => {
+      res.json(dbArticle);
+    });
+  });
+
+  // Route to get articles of a category from the database
+  app.get("/api/articles/:typeId", (req, res) => {
+    db.articles
+      .findAll({
+        where: {
+          typeId: req.params.typeId
+        },
+        limit: 8
+      })
+      .then(dbArticle => {
+        res.json(dbArticle);
+      });
+  });
+
+  // Route to get all products with a specific tag
   app.get("/api/products/:tag", (req, res) => {
-    console.log(req.params.tag);
-    console.log("tag");
     db.products
       .findAll({
         where: {
@@ -99,68 +142,18 @@ module.exports = function(app) {
       });
   });
 
-  app.get("/api/products/:id/image", (req, res) => {
-    db.products
-      .findOne({
-        where: {
-          listingId: req.params.id
-        }
-      })
-      .then(results => {
-        res.json(results.imageURL);
-      });
-  });
-
-  // PUT route for updating users search history  ***********place holders for now*****************
-  app.put("/api/user/:id", (req, res) => {
-    db.user
-      .update(req.body, {
-        where: {
-          id: req.params.id
-        }
-      })
-      .then(dbPost => {
-        res.json(dbPost);
-      });
-  });
-
-  // DELETE route for deleting user
-  app.delete("/api/user/:id", (req, res) => {
-    db.user
-      .destroy({
-        where: {
-          id: req.params.id
-        }
-      })
-      .then(dbPost => {
-        res.json(dbPost);
-      });
-  });
-
+  // Route to get the Solar Irradiance for a location
   app.get("/api/solar/:parameters", (req, res) => {
-    nrel.getAPI("solarResource", req.params.parameters)
+    nrel
+      .getAPI("solarResource", req.params.parameters)
       .then(response => res.json(response.outputs.avg_dni.annual));
   });
 
+  // Route to get the city name for a given latitude and longitude
   app.get("/api/google/:parameters", (req, res) => {
     const location = JSON.parse(req.params.parameters);
-    console.log(`${location.lat},${location.lon}`);
-    google.getCity(`${location.lat},${location.lon}`)
+    google
+      .getCity(`${location.lat},${location.lon}`)
       .then(response => res.json(response.results[0].address_components));
-  });
-  
-  // Route for getting some data about our user to be used client side
-  app.get("/api/user_data", (req, res) => {
-    if (!req.user) {
-      // The user is not logged in, send back an empty object
-      res.json({});
-    } else {
-      // Otherwise send back the user's email and id
-      // Sending back a password, even a hashed password, isn't a good idea
-      res.json({
-        email: req.user.email,
-        emailOptIn: req.user.emailOptIn
-      });
-    }
   });
 };
