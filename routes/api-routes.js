@@ -108,14 +108,11 @@ module.exports = function(app) {
   // PUT route for updating users search history  ***********place holders for now*****************
   app.put("/api/user/:id", (req, res) => {
     db.user
-      .update(
-        {},
-        {
-          where: {
-            id: req.params.id
-          }
+      .update(req.body, {
+        where: {
+          id: req.params.id
         }
-      )
+      })
       .then(dbPost => {
         res.json(dbPost);
       });

@@ -4,6 +4,7 @@ const session = require("express-session");
 const handlebars = require("express-handlebars");
 // Requiring passport as we've configured it
 const passport = require("./config/passport");
+
 // Allows env variables in development
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();

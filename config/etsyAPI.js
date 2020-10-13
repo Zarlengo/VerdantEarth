@@ -3,10 +3,10 @@ module.exports = class ETSY {
     this.fetch = require("node-fetch");
     this.products = products;
     const listingURLs = [
-      `https://openapi.etsy.com/v2/listings/active?api_key=${process.env.ETSY_key}&keyword=zerowaste`,
-      `https://openapi.etsy.com/v2/listings/active?api_key=${process.env.ETSY_key}&keyword=compostable`,
-      `https://openapi.etsy.com/v2/listings/active?api_key=${process.env.ETSY_key}&keyword=reusable`,
-      `https://openapi.etsy.com/v2/listings/active?api_key=${process.env.ETSY_key}&keyword=recyled`
+      `https://openapi.etsy.com/v2/listings/active?api_key=${process.env.ETSY_key}&tags=zerowaste`,
+      `https://openapi.etsy.com/v2/listings/active?api_key=${process.env.ETSY_key}&tags=compostable`,
+      `https://openapi.etsy.com/v2/listings/active?api_key=${process.env.ETSY_key}&tags=reusable`,
+      `https://openapi.etsy.com/v2/listings/active?api_key=${process.env.ETSY_key}&tags=recyled`
     ];
     listingURLs.forEach(listingURL => {
       this.fetch(listingURL)
