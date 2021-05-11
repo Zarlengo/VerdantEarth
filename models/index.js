@@ -12,12 +12,14 @@ db.Sequelize = Sequelize;
 
 // Checks if in production // Checks if in production 
 if (config.use_env_variable) {
-  db.sequelize = new Sequelize({
-    connectionString: process.env[config.use_env_variable],
-    ssl: {
-      rejectUnauthorized: false
-    }
-  });
+  db.sequelize = new Sequelize(process.env[config.use_env_variable],
+    {
+      dialect: 'postgres',
+      protocol: 'postgres',
+      dialectOptions: {
+          ssl: true
+      }
+    });
 } else {
   db.sequelize = new Sequelize(
     config.database,
